@@ -26,7 +26,7 @@ public class GameImpl implements Game {
 
 	@Override
 	public void register(Player player) {
-		player.drawHand(); //TODO: Untested!!!
+		player.drawHand();
 		players.add(player);
 	}
 

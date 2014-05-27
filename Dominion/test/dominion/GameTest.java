@@ -10,11 +10,12 @@ import org.junit.Test;
 
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
+import dominion.mock.PlayerDummy;
 
 public class GameTest {
 	/*
-	 * informations required to print the board: - number of actions left
-	 * - number of buy left - number of gold within the turn
+	 * informations required to print the board: - number of actions left -
+	 * number of buy left - number of gold within the turn
 	 */
 	Game game;
 	PlayerImpl player0;
@@ -34,24 +35,35 @@ public class GameTest {
 	}
 
 	@Test
-	public void winnerPlayer0(){
+	public void drawsHandWhenRegisters() {
 		//Given
-		player0.pile.add(Card.ESTATE);
+		PlayerDummy player = new PlayerDummy();
 		//When
-		Player winner = game.winner();
+		game.register(player);
 		//Then
+		assertEquals(new Integer(1), player.handDrawn);
+	}
+
+	@Test
+	public void winnerPlayer0() {
+		// Given
+		player0.pile.add(Card.ESTATE);
+		// When
+		Player winner = game.winner();
+		// Then
 		assertEquals(player0, winner);
 	}
+
 	@Test
-	public void winnerPlayer1(){
-		//Given
+	public void winnerPlayer1() {
+		// Given
 		player1.pile.add(Card.ESTATE);
-		//When
+		// When
 		Player winner = game.winner();
-		//Then
+		// Then
 		assertEquals(player1, winner);
 	}
-	
+
 	@Test
 	public void setInitialGameDeck() {
 		assertEquals(gameDeck, game.getGameDeck());
