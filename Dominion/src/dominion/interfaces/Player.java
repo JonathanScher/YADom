@@ -1,7 +1,7 @@
 package dominion.interfaces;
 
 public interface Player {
-	void initDraw();
+	void initPile();
 	Integer getHandSize();
 	void drawHand();
 }

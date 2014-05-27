@@ -12,7 +12,7 @@ import dominion.mock.PlayerDeckNoShuffle;
 
 public class PlayerTest {
 	PlayerImpl player;
-	PlayerDeck draw;
+	PlayerDeck pile;
 
 	@Before
 	public void init() {
@@ -21,24 +21,24 @@ public class PlayerTest {
 		Game game = new GameImpl(gameDeck);
 		game.register(player);
 
-		draw = new PlayerDeck();
-		draw.add(Card.COPPER, Card.ESTATE, Card.COPPER, Card.ESTATE,
+		pile = new PlayerDeck();
+		pile.add(Card.COPPER, Card.ESTATE, Card.COPPER, Card.ESTATE,
 				Card.COPPER, Card.ESTATE, Card.COPPER, Card.ESTATE,
 				Card.COPPER, Card.ESTATE);
-		player.draw = draw;
+		player.pile = pile;
 	}
 
 	@Test
 	public void initDrawCreatesTheFirstDeck() {
 		// Given
-		player.draw = new PlayerDeckNoShuffle();
+		player.pile = new PlayerDeckNoShuffle();
 		//When
-		player.initDraw();
+		player.initPile();
 		//Then
-		assertEquals(10, player.draw.size());
-		assertEquals(3, Collections.frequency(player.draw, Card.ESTATE));
-		assertEquals(7, Collections.frequency(player.draw, Card.COPPER));
-		assertEquals(new Integer(1), player.draw.shuffled);
+		assertEquals(10, player.pile.size());
+		assertEquals(3, Collections.frequency(player.pile, Card.ESTATE));
+		assertEquals(7, Collections.frequency(player.pile, Card.COPPER));
+		assertEquals(new Integer(1), player.pile.shuffled);
 	}
 
 	@Test
@@ -65,14 +65,14 @@ public class PlayerTest {
 		player.drawHand();
 
 		// Then
-		assertEquals(expected, player.draw);
+		assertEquals(expected, player.pile);
 	}
 
 	@Test
 	public void drawHandTakes3FirstCardsIfThereIsOnly3CardsInTheDeckAndDiscardedIsEmpty() {
 		PlayerDeck smallDraw = new PlayerDeck();
 		smallDraw.add(Card.COPPER);
-		player.draw = smallDraw;
+		player.pile = smallDraw;
 
 		PlayerDeck expected = new PlayerDeck();
 		expected.add(Card.COPPER);
@@ -93,7 +93,7 @@ public class PlayerTest {
 		discard.add(Card.ESTATE, Card.COPPER, Card.ESTATE, Card.ESTATE,
 				Card.ESTATE, Card.ESTATE);
 		PlayerDeck hand = new PlayerDeck();
-		player.draw = draw;
+		player.pile = draw;
 		player.discard = discard;
 		player.hand = hand;
 
@@ -106,9 +106,9 @@ public class PlayerTest {
 		// When
 		player.drawHand();
 		// Then
-		assertEquals(expectedDraw, player.draw);
+		assertEquals(expectedDraw, player.pile);
 		assertEquals(expectedDiscard, player.discard);
 		assertEquals(expectedHand, player.hand);
-		assertEquals(new Integer(1), player.draw.shuffled);
+		assertEquals(new Integer(1), player.pile.shuffled);
 	}
 }

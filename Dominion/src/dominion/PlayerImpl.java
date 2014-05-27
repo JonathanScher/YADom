@@ -11,20 +11,20 @@ public class PlayerImpl implements Player {
 	private static final int INITIAL_NUMBER_OF_COPPERS = 7;
 
 	public PlayerDeck hand;
-	public PlayerDeck draw;
+	public PlayerDeck pile;
 	public PlayerDeck discard;
 
 	public PlayerImpl() {
 		hand = new PlayerDeck();
 		discard = new PlayerDeck();
-		draw = new PlayerDeck();
+		pile = new PlayerDeck();
 	}
 
 	@Override
-	public void initDraw() { //TODO: never called!!!
-		addCardsToDeck(draw, Card.COPPER, INITIAL_NUMBER_OF_COPPERS);
-		addCardsToDeck(draw, Card.ESTATE, INITIAL_NUMBER_OF_ESTATES);
-		draw.shuffle();
+	public void initPile() { //TODO: never called!!!
+		addCardsToDeck(pile, Card.COPPER, INITIAL_NUMBER_OF_COPPERS);
+		addCardsToDeck(pile, Card.ESTATE, INITIAL_NUMBER_OF_ESTATES);
+		pile.shuffle();
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void drawHand() {
-		if (draw.size() < DRAWING_SIZE) {
+		if (pile.size() < DRAWING_SIZE) {
 			drawAndShuffle();
 		} else {
 			drawFromDrawingPile(DRAWING_SIZE);
@@ -42,7 +42,7 @@ public class PlayerImpl implements Player {
 	}
 
 	public PlayerDeck getPlayerDeck() {
-		return draw;
+		return pile;
 	}
 
 	private void addCardsToDeck(List<Card> deck, Card card,
@@ -53,19 +53,19 @@ public class PlayerImpl implements Player {
 	}
 
 	private void drawAndShuffle() {
-		int intialDraw = draw.size();
+		int intialDraw = pile.size();
 		drawFromDrawingPile(intialDraw);
 		discard.shuffle();
-		draw = discard;
+		pile = discard;
 		discard = new PlayerDeck();
 
-		drawFromDrawingPile(Math.min(5 - intialDraw, draw.size()));
+		drawFromDrawingPile(Math.min(5 - intialDraw, pile.size()));
 	}
 
 	private void drawFromDrawingPile(int numberOfCards) {
 		for (int i = 0; i < numberOfCards; i++) {
-			hand.add(draw.get(0));
-			draw.remove(0);
+			hand.add(pile.get(0));
+			pile.remove(0);
 		}
 	}
 
