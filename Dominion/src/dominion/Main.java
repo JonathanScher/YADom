@@ -17,7 +17,7 @@ public class Main {
 		game.register(player1);
 		
 		game.play(); //not implemented
-		System.out.println("winner is: " + game.winner());//not implemented
+		System.out.println("winner is: " + game.winner());
 	}
 
 }
