@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Player {
 
+	private static final int DRAWING_SIZE = 5;
 	private static final int INITIAL_NUMBER_OF_ESTATES = 3;
 	private static final int INITIAL_NUMBER_OF_COPPERS = 7;
 
@@ -36,18 +37,21 @@ public class Player {
 	}
 
 	public void drawHand() {
-		if (draw.size() < 5) {
-			int intialDraw = draw.size();
-			int numberOfCards = intialDraw;
-			drawFromDrawingPile(numberOfCards);
-			discard.shuffle();
-			draw = discard;
-			discard = new PlayerDeck();
-
-			drawFromDrawingPile(Math.min(5 - intialDraw, draw.size()));
+		if (draw.size() < DRAWING_SIZE) {
+			drawAndShuffle();
 		} else {
-			drawFromDrawingPile(5);
+			drawFromDrawingPile(DRAWING_SIZE);
 		}
+	}
+
+	private void drawAndShuffle() {
+		int intialDraw = draw.size();
+		drawFromDrawingPile(intialDraw);
+		discard.shuffle();
+		draw = discard;
+		discard = new PlayerDeck();
+
+		drawFromDrawingPile(Math.min(5 - intialDraw, draw.size()));
 	}
 
 	private void drawFromDrawingPile(int numberOfCards) {
