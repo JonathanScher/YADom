@@ -19,6 +19,8 @@ public class PlayerImpl implements Player {
 		discard = new PlayerDeck();
 		pile = new PlayerDeck();
 	}
+	
+	//TODO: create a method "turn"
 
 	@Override
 	public void initPile() { // TODO: never called!!!

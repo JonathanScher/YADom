@@ -33,16 +33,19 @@ public class GameImpl implements Game {
 	@Override
 	public List<Integer> getNumberOfCards() {
 		List<Integer> numberOfCards = new ArrayList<>();
-		for(Player player:players){
+		for (Player player : players) {
 			numberOfCards.add(player.getHandSize());
 		}
 		return numberOfCards;
 	}
-	
+
 	@Override
 	public void play() {
 		// TODO Auto-generated method stub
-		
+		// call each player "turn" until game over
+		//
+		// Game over : after 1000 turns, or no more Province, or enough stack empty
+		// enough being 2 for a 2 player game, 3 for more than 2 players
 	}
 
 	@Override
