@@ -9,10 +9,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dominion.interfaces.Game;
+import dominion.interfaces.Player;
 
 public class GameTest {
 	/*
-	 * informations required to print the board: - hand - number of actions left
+	 * informations required to print the board: - number of actions left
 	 * - number of buy left - number of gold within the turn
 	 */
 	Game game;
@@ -32,6 +33,25 @@ public class GameTest {
 		cards = player1.getPlayerDeck();
 	}
 
+	@Test
+	public void winnerPlayer0(){
+		//Given
+		player0.pile.add(Card.ESTATE);
+		//When
+		Player winner = game.winner();
+		//Then
+		assertEquals(player0, winner);
+	}
+	@Test
+	public void winnerPlayer1(){
+		//Given
+		player1.pile.add(Card.ESTATE);
+		//When
+		Player winner = game.winner();
+		//Then
+		assertEquals(player1, winner);
+	}
+	
 	@Test
 	public void setInitialGameDeck() {
 		assertEquals(gameDeck, game.getGameDeck());

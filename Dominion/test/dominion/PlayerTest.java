@@ -29,6 +29,23 @@ public class PlayerTest {
 	}
 
 	@Test
+	public void value(){
+		//Given
+		player.pile = new PlayerDeck();
+		player.hand = new PlayerDeck();
+		player.discard = new PlayerDeck();
+		player.pile.add(Card.ESTATE);
+		player.hand.add(Card.ESTATE);
+		player.discard.add(Card.ESTATE);
+		
+		Integer expected = 3;
+		//When
+		Integer actual = player.victoryValue();
+		//Then
+		assertEquals(expected, actual);
+	}
+	
+	@Test
 	public void initDrawCreatesTheFirstDeck() {
 		// Given
 		player.pile = new PlayerDeckNoShuffle();

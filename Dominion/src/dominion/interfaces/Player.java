@@ -1,7 +1,11 @@
 package dominion.interfaces;
 
-public interface Player {
+public interface Player extends Comparable<Player> {
 	void initPile();
+
 	Integer getHandSize();
+
 	void drawHand();
+
+	Integer victoryValue();
 }

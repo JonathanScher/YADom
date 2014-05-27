@@ -17,9 +17,17 @@ public class PlayerDeck extends ArrayList<Card> {
 	}
 
 	public void add(Card... cards) {
-		for(Card card:cards){
+		for (Card card : cards) {
 			this.add(card);
 		}
+	}
+
+	public Integer value() {
+		Integer value = 0;
+		for (Card card : this) {
+			value += card.victoryValue;
+		}
+		return value;
 	}
 
 }

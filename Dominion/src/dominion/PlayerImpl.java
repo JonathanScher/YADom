@@ -21,7 +21,7 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	public void initPile() { //TODO: never called!!!
+	public void initPile() { // TODO: never called!!!
 		addCardsToDeck(pile, Card.COPPER, INITIAL_NUMBER_OF_COPPERS);
 		addCardsToDeck(pile, Card.ESTATE, INITIAL_NUMBER_OF_ESTATES);
 		pile.shuffle();
@@ -67,6 +67,16 @@ public class PlayerImpl implements Player {
 			hand.add(pile.get(0));
 			pile.remove(0);
 		}
+	}
+
+	@Override
+	public Integer victoryValue() {
+		return discard.value() + pile.value() + hand.value();
+	}
+
+	@Override
+	public int compareTo(Player otherPlayer) {
+		return this.victoryValue().compareTo(otherPlayer.victoryValue());
 	}
 
 }

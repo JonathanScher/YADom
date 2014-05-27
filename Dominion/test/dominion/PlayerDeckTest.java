@@ -15,4 +15,12 @@ public class PlayerDeckTest {
 		//Then
 		assertEquals(expected, playerDeck);
 	}
+	
+	@Test
+	public void victoryValue(){
+		PlayerDeck playerDeck = new PlayerDeck();
+		playerDeck.add(Card.COPPER, Card.ESTATE, Card.DUCHY);
+		
+		assertEquals(new Integer(3), playerDeck.value());
+	}
 }

@@ -1,6 +1,7 @@
 package dominion;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import dominion.interfaces.Game;
@@ -36,6 +37,17 @@ public class GameImpl implements Game {
 			numberOfCards.add(player.getHandSize());
 		}
 		return numberOfCards;
+	}
+	
+	@Override
+	public void play() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Player winner() {
+		return Collections.max(players);
 	}
 
 }
