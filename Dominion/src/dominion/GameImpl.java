@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dominion.interfaces.Game;
+import dominion.interfaces.Player;
 
 public class GameImpl implements Game {
 	public GameDeck gameDeck;
@@ -24,6 +25,7 @@ public class GameImpl implements Game {
 
 	@Override
 	public void register(Player player) {
+		player.drawHand(); //TODO: Untested!!!
 		players.add(player);
 	}
 

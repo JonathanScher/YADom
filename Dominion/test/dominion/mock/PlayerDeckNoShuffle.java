@@ -1,4 +1,6 @@
-package dominion;
+package dominion.mock;
+
+import dominion.PlayerDeck;
 
 public class PlayerDeckNoShuffle extends PlayerDeck {
 

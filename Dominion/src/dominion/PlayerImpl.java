@@ -2,7 +2,9 @@ package dominion;
 
 import java.util.List;
 
-public class Player {
+import dominion.interfaces.Player;
+
+public class PlayerImpl implements Player {
 
 	private static final int DRAWING_SIZE = 5;
 	private static final int INITIAL_NUMBER_OF_ESTATES = 3;
@@ -12,35 +14,41 @@ public class Player {
 	public PlayerDeck draw;
 	public PlayerDeck discard;
 
-	public Player() {
+	public PlayerImpl() {
 		hand = new PlayerDeck();
 		discard = new PlayerDeck();
+		draw = new PlayerDeck();
+	}
+
+	@Override
+	public void initDraw() { //TODO: never called!!!
+		addCardsToDeck(draw, Card.COPPER, INITIAL_NUMBER_OF_COPPERS);
+		addCardsToDeck(draw, Card.ESTATE, INITIAL_NUMBER_OF_ESTATES);
+		draw.shuffle();
+	}
+
+	@Override
+	public Integer getHandSize() {
+		return hand.size();
+	}
+
+	@Override
+	public void drawHand() {
+		if (draw.size() < DRAWING_SIZE) {
+			drawAndShuffle();
+		} else {
+			drawFromDrawingPile(DRAWING_SIZE);
+		}
 	}
 
 	public PlayerDeck getPlayerDeck() {
-		PlayerDeck deck = new PlayerDeck();
-		addCardsToDeck(deck, Card.COPPER, INITIAL_NUMBER_OF_COPPERS);
-		addCardsToDeck(deck, Card.ESTATE, INITIAL_NUMBER_OF_ESTATES);
-		deck.shuffle();
-		return deck;
+		return draw;
 	}
 
 	private void addCardsToDeck(List<Card> deck, Card card,
 			Integer initialNumber) {
 		for (int cpt = 0; cpt < initialNumber; cpt++) {
 			deck.add(card);
-		}
-	}
-
-	public Integer getHandSize() {
-		return hand.size();
-	}
-
-	public void drawHand() {
-		if (draw.size() < DRAWING_SIZE) {
-			drawAndShuffle();
-		} else {
-			drawFromDrawingPile(DRAWING_SIZE);
 		}
 	}
 

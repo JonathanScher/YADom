@@ -1,14 +1,11 @@
 package dominion;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import dominion.interfaces.Game;
@@ -19,16 +16,16 @@ public class GameTest {
 	 * - number of buy left - number of gold within the turn
 	 */
 	Game game;
-	Player player0;
-	Player player1;
+	PlayerImpl player0;
+	PlayerImpl player1;
 	PlayerDeck cards;
 	GameDeck gameDeck;
 
 	@Before
 	public void init() {
 		gameDeck = new GameDeck();
-		player0 = new Player();
-		player1 = new Player();
+		player0 = new PlayerImpl();
+		player1 = new PlayerImpl();
 		game = new GameImpl(gameDeck);
 		game.register(player0);
 		game.register(player1);
@@ -69,24 +66,5 @@ public class GameTest {
 
 		// THEN
 		assertEquals(expected, numberOfCards);
-	}
-
-	@Test
-	@Ignore
-	public void firstHandContainsOneCopper() {
-		List<Card> cards = player1.hand;
-		assertTrue(cards.contains(Card.COPPER));
-	}
-
-	@Test
-	public void firstDeckIs7Coppers3Estates() {
-
-		assertEquals(7, Collections.frequency(cards, Card.COPPER));
-		assertEquals(3, Collections.frequency(cards, Card.ESTATE));
-	}
-
-	@Test
-	public void firstDeckIsShuffled() {
-		assertEquals(new Integer(1), cards.getShuffled());
 	}
 }
