@@ -1,6 +1,5 @@
 package dominion;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -10,9 +9,11 @@ public class Player {
 
 	public PlayerDeck hand;
 	public PlayerDeck draw;
+	public PlayerDeck discard;
 
 	public Player() {
 		hand = new PlayerDeck();
+		discard = new PlayerDeck();
 	}
 
 	public PlayerDeck getPlayerDeck() {
@@ -35,7 +36,22 @@ public class Player {
 	}
 
 	public void drawHand() {
-		for (int i = 0; i < Math.min(5, draw.size()); i++) {
+		if (draw.size() < 5) {
+			int intialDraw = draw.size();
+			int numberOfCards = intialDraw;
+			drawFromDrawingPile(numberOfCards);
+			discard.shuffle();
+			draw = discard;
+			discard = new PlayerDeck();
+
+			drawFromDrawingPile(Math.min(5 - intialDraw, draw.size()));
+		} else {
+			drawFromDrawingPile(5);
+		}
+	}
+
+	private void drawFromDrawingPile(int numberOfCards) {
+		for (int i = 0; i < numberOfCards; i++) {
 			hand.add(draw.get(0));
 			draw.remove(0);
 		}
