@@ -9,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
@@ -20,6 +21,7 @@ import dominion.deck.GameDeck;
 import dominion.deck.PlayerDeck;
 import dominion.exception.BuyException;
 import dominion.exception.CardNotInDeckException;
+import dominion.exception.NotAllowedToBuyException;
 import dominion.exception.NotEnoughGoldException;
 import dominion.exception.PileDepletedException;
 import dominion.interfaces.Game;
@@ -53,6 +55,26 @@ public class GameTest {
 		game.buy(Card.CURSE, player0);
 	}
 
+	@Test(expected = NotAllowedToBuyException.class)
+	public void tryToBuyTwoCardsWithOneBuyPossible() throws BuyException {
+		gameDeck.put(Card.CURSE, 8);
+		game.buy(Card.CURSE, player0);
+		game.buy(Card.CURSE, player0);
+	}
+
+	@Test
+	public void canBuyTwoCardsInTwoTurns() throws BuyException {
+		//Given
+		gameDeck.put(Card.CURSE, 8);
+		game.buy(Card.CURSE, player0);
+		player0.turn(game);
+		//When
+		game.buy(Card.CURSE, player0);
+		//Then
+		assertEquals(2, Collections.frequency(player0.discard, Card.CURSE));
+	}
+
+	
 	@Test(expected = CardNotInDeckException.class)
 	public void tryToBuyACardNotFromDeck() throws BuyException {
 		gameDeck.put(Card.CURSE, 0);

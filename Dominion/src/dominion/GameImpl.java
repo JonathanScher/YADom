@@ -8,6 +8,7 @@ import dominion.cards.Card;
 import dominion.deck.GameDeck;
 import dominion.exception.BuyException;
 import dominion.exception.CardNotInDeckException;
+import dominion.exception.NotAllowedToBuyException;
 import dominion.exception.NotEnoughGoldException;
 import dominion.exception.PileDepletedException;
 import dominion.interfaces.Game;
@@ -79,20 +80,21 @@ public class GameImpl implements Game {
 
 	@Override
 	public void buy(Card card, Player player) throws BuyException {
-		//TODO OK We are only concidering the happy case where the strategy will only do legal operation.
-		// - Multiple buy in a turn when I have only 1 buy possible?
-		if (gameDeck.get(card) == null){
+		if (gameDeck.get(card) == null) {
 			throw new CardNotInDeckException();
 		}
-		if (gameDeck.get(card) < 1){
+		if (gameDeck.get(card) < 1) {
 			throw new PileDepletedException();
 		}
 		if (player.getGold() < card.cost) {
 			throw new NotEnoughGoldException();
 		}
-		player.giveCard(card);
+		if (player.getBuyLeft() < 1) {
+			throw new NotAllowedToBuyException();
+		}
+		player.buy(card);
 		int numberOfCards = gameDeck.get(card);
-		numberOfCards -=1;
+		numberOfCards -= 1;
 		gameDeck.put(card, numberOfCards);
 	}
 }
