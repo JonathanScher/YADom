@@ -12,5 +12,5 @@ public interface Game {
 	void play();
 	Player winner();
 	Boolean gameOver();
-	void buy(Card province);
+	void buy(Card card, Player player);
 }

@@ -10,11 +10,11 @@ public class BigMoney implements Strategy {
 	@Override
 	public void turn(Player player, Game game) {
 		if (player.getGold() > 7) {
-			game.buy(Card.PROVINCE);
+			game.buy(Card.PROVINCE, player);
 		} else if (player.getGold() > 5) {
-			game.buy(Card.GOLD);
+			game.buy(Card.GOLD, player);
 		} else if (player.getGold() > 2) {
-			game.buy(Card.SILVER);
+			game.buy(Card.SILVER, player);
 		}
 	}
 

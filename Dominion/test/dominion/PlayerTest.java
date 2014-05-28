@@ -28,6 +28,12 @@ public class PlayerTest {
 		player.pile = pile;
 	}
 
+	
+	@Test
+	public void toStringPrintsName(){
+		player.setName("test");
+		assertEquals("test", player.toString());
+	}
 	@Test
 	public void getGoldReturnsGoldInHand() {
 		// G

@@ -15,17 +15,19 @@ public class Main {
 		gameDeck.put(Card.DUCHY, 8);
 		gameDeck.put(Card.ESTATE, 8);
 		gameDeck.put(Card.PROVINCE, 8);
-		
+
 		Game game = new GameImpl(gameDeck);
 
 		Player player0 = new PlayerImpl();
-		player0.setStrategy(new BigMoney());
+		player0.setName("Player 0");
 		Player player1 = new PlayerImpl();
-		//at some point we want to define the strategy for each player here
+		player1.setName("Player 1");
+		player1.setStrategy(new BigMoney());
+
 		game.register(player0);
 		game.register(player1);
-		
-		game.play(); //not implemented
+
+		game.play(); // not implemented
 		System.out.println("winner is: " + game.winner());
 	}
 

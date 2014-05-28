@@ -1,5 +1,7 @@
 package dominion.interfaces;
 
+import dominion.Card;
+
 public interface Player extends Comparable<Player> {
 	void initPile();
 
@@ -14,4 +16,8 @@ public interface Player extends Comparable<Player> {
 	void setStrategy(Strategy strategy);
 
 	Integer getGold();
+
+	void giveCard(Card card);
+
+	void setName(String string);
 }

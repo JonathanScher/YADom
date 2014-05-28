@@ -35,7 +35,7 @@ public class BigMoneyTest {
 		//When
 		bigMoney.turn(player, game);
 		//Then
-		verify(game).buy(Card.PROVINCE);
+		verify(game).buy(Card.PROVINCE, player);
 	}
 	
 	@Test
@@ -45,7 +45,7 @@ public class BigMoneyTest {
 		//When
 		bigMoney.turn(player, game);
 		//Then
-		verify(game).buy(Card.GOLD);
+		verify(game).buy(Card.GOLD, player);
 	}
 
 	@Test
@@ -55,7 +55,7 @@ public class BigMoneyTest {
 		//When
 		bigMoney.turn(player, game);
 		//Then
-		verify(game).buy(Card.SILVER);
+		verify(game).buy(Card.SILVER, player);
 	}
 
 }

@@ -72,8 +72,14 @@ public class GameImpl implements Game {
 	}
 
 	@Override
-	public void buy(Card province) {
-		// TODO Auto-generated method stub
-		
+	public void buy(Card card, Player player) {
+		//TODO OK We are only concidering the happy case where the strategy will only do legal operation.
+		// - try to buy a card when there is no more in pile?
+		// - Multiple buy in a turn when I have only 1 buy possible?
+		// - Buy a card without enough gold to do so?
+		player.giveCard(card);
+		int numberOfCards = gameDeck.get(card);
+		numberOfCards -=1;
+		gameDeck.put(card, numberOfCards);
 	}
 }

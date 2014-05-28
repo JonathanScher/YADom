@@ -17,6 +17,7 @@ public class PlayerImpl implements Player {
 	public PlayerDeck pile;
 	public PlayerDeck discard;
 	public Strategy strategy;
+	private String name;
 
 	public PlayerImpl() {
 		strategy = new DoNothing();
@@ -24,7 +25,7 @@ public class PlayerImpl implements Player {
 		discard = new PlayerDeck();
 		pile = new PlayerDeck();
 	}
-	
+
 	@Override
 	public void initPile() {
 		addCardsToDeck(pile, Card.COPPER, INITIAL_NUMBER_OF_COPPERS);
@@ -76,7 +77,8 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public Integer victoryValue() {
-		return discard.victoryValue() + pile.victoryValue() + hand.victoryValue();
+		return discard.victoryValue() + pile.victoryValue()
+				+ hand.victoryValue();
 	}
 
 	@Override
@@ -92,12 +94,27 @@ public class PlayerImpl implements Player {
 	@Override
 	public void setStrategy(Strategy strategy) {
 		this.strategy = strategy;
-		
+
 	}
 
 	@Override
 	public Integer getGold() {
 		return hand.goldValue();
+	}
+
+	@Override
+	public void giveCard(Card card) {
+		discard.add(card);
+	}
+
+	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return this.name;
 	}
 
 }

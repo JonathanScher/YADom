@@ -41,13 +41,35 @@ public class GameTest {
 	}
 
 	@Test
+	public void buyACopperAddsACopperInPlayersHand() {
+		//G
+		PlayerDeck discard = mock(PlayerDeck.class);
+		gameDeck.put(Card.COPPER, 10);
+		player0.discard = discard;
+		//W
+		game.buy(Card.COPPER, player0);
+		//T
+		verify(discard).add(Card.COPPER);
+	}
+
+	@Test
+	public void buyACopperRemovesACopperFromGameStack() {
+		//G
+		gameDeck.put(Card.COPPER, 10);
+		//W
+		game.buy(Card.COPPER, player0);
+		//T
+		assertEquals(9, (int) gameDeck.get(Card.COPPER));
+	}
+
+	@Test
 	public void registerInitialisePlayers() {
 		// Given
 		Player player = mock(PlayerImpl.class);
 
 		// When
 		game.register(player);
-		
+
 		// Then
 		verify(player).initPile();
 	}
