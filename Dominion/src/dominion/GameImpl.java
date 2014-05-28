@@ -6,6 +6,10 @@ import java.util.List;
 
 import dominion.cards.Card;
 import dominion.deck.GameDeck;
+import dominion.exception.BuyException;
+import dominion.exception.CardNotInDeckException;
+import dominion.exception.NotEnoughGoldException;
+import dominion.exception.PileDepletedException;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 
@@ -74,11 +78,18 @@ public class GameImpl implements Game {
 	}
 
 	@Override
-	public void buy(Card card, Player player) {
+	public void buy(Card card, Player player) throws BuyException {
 		//TODO OK We are only concidering the happy case where the strategy will only do legal operation.
-		// - try to buy a card when there is no more in pile?
 		// - Multiple buy in a turn when I have only 1 buy possible?
-		// - Buy a card without enough gold to do so?
+		if (gameDeck.get(card) == null){
+			throw new CardNotInDeckException();
+		}
+		if (gameDeck.get(card) < 1){
+			throw new PileDepletedException();
+		}
+		if (player.getGold() < card.cost) {
+			throw new NotEnoughGoldException();
+		}
 		player.giveCard(card);
 		int numberOfCards = gameDeck.get(card);
 		numberOfCards -=1;

@@ -18,6 +18,10 @@ import org.mockito.Mockito;
 import dominion.cards.Card;
 import dominion.deck.GameDeck;
 import dominion.deck.PlayerDeck;
+import dominion.exception.BuyException;
+import dominion.exception.CardNotInDeckException;
+import dominion.exception.NotEnoughGoldException;
+import dominion.exception.PileDepletedException;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 
@@ -43,25 +47,43 @@ public class GameTest {
 		cards = player1.getPlayerDeck();
 	}
 
+	@Test(expected = PileDepletedException.class)
+	public void tryToBuyACardFromDepletedPile() throws BuyException {
+		gameDeck.put(Card.CURSE, 0);
+		game.buy(Card.CURSE, player0);
+	}
+
+	@Test(expected = CardNotInDeckException.class)
+	public void tryToBuyACardNotFromDeck() throws BuyException {
+		gameDeck.put(Card.CURSE, 0);
+		game.buy(Card.DUCHY, player0);
+	}
+	@Test(expected = NotEnoughGoldException.class)
+	public void tryToBuyACardNotEnoughGold() throws BuyException {
+		gameDeck.put(Card.PROVINCE, 5);
+		player1.hand.add(Card.COPPER, Card.COPPER);
+		game.buy(Card.PROVINCE, player0);
+	}
+
 	@Test
-	public void buyACopperAddsACopperInPlayersHand() {
-		//G
+	public void buyACopperAddsACopperInPlayersHand() throws BuyException {
+		// G
 		PlayerDeck discard = mock(PlayerDeck.class);
 		gameDeck.put(Card.COPPER, 10);
 		player0.discard = discard;
-		//W
+		// W
 		game.buy(Card.COPPER, player0);
-		//T
+		// T
 		verify(discard).add(Card.COPPER);
 	}
 
 	@Test
-	public void buyACopperRemovesACopperFromGameStack() {
-		//G
+	public void buyACopperRemovesACopperFromGameStack() throws BuyException {
+		// G
 		gameDeck.put(Card.COPPER, 10);
-		//W
+		// W
 		game.buy(Card.COPPER, player0);
-		//T
+		// T
 		assertEquals(9, (int) gameDeck.get(Card.COPPER));
 	}
 

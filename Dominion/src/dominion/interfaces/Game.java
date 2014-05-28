@@ -4,6 +4,7 @@ import java.util.List;
 
 import dominion.cards.Card;
 import dominion.deck.GameDeck;
+import dominion.exception.BuyException;
 
 public interface Game {
 	void register(Player player);
@@ -12,5 +13,5 @@ public interface Game {
 	void play();
 	Player winner();
 	Boolean gameOver();
-	void buy(Card card, Player player);
+	void buy(Card card, Player player) throws BuyException;
 }
