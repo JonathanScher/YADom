@@ -56,8 +56,8 @@ public class GameTest {
 		// When
 		game.play();
 		// Then
-		verify(player0, times(2)).turn();
-		verify(player1, times(1)).turn();
+		verify(player0, times(2)).turn(game);
+		verify(player1, times(1)).turn(game);
 	}
 
 	@Test
@@ -78,9 +78,9 @@ public class GameTest {
 		// When
 		game.play();
 		// Then
-		verify(player0, times(2)).turn();
-		verify(player1, times(1)).turn();
-		verify(player2, times(1)).turn();
+		verify(player0, times(2)).turn(game);
+		verify(player1, times(1)).turn(game);
+		verify(player2, times(1)).turn(game);
 	}
 
 	@Test

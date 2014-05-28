@@ -9,7 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dominion.interfaces.Game;
+import dominion.interfaces.Strategy;
 import dominion.mock.PlayerDeckNoShuffle;
+import dominion.strategies.DoNothing;
 
 public class PlayerTest {
 	PlayerImpl player;
@@ -30,33 +32,50 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void value(){
-		//Given
+	public void eachTurnPlayerCallsItsStrategy() {
+		// G
+		Game game = mock(Game.class);
+		Strategy mockStrat = mock(Strategy.class);
+		player.strategy = mockStrat;
+		// W
+		player.turn(game);
+		// T
+		verify(mockStrat).turn(player, game);
+	}
+
+	@Test
+	public void doNothingIsTheDefaultStrategy() {
+		assertEquals(DoNothing.class, player.strategy.getClass());
+	}
+
+	@Test
+	public void value() {
+		// Given
 		player.pile = new PlayerDeck();
 		player.hand = new PlayerDeck();
 		player.discard = new PlayerDeck();
 		player.pile.add(Card.ESTATE);
 		player.hand.add(Card.ESTATE);
 		player.discard.add(Card.ESTATE);
-		
+
 		Integer expected = 3;
-		//When
+		// When
 		Integer actual = player.victoryValue();
-		//Then
+		// Then
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void initPileCreatesTheFirstDeck() {
 		// Given
 		player.pile = mock(PlayerDeck.class);
-		//When
+		// When
 		player.initPile();
-		//Then
+		// Then
 		verify(player.pile, times(3)).add(Card.ESTATE);
 		verify(player.pile, times(7)).add(Card.COPPER);
 		verify(player.pile).shuffle();
-		
+
 	}
 
 	@Test

@@ -2,7 +2,10 @@ package dominion;
 
 import java.util.List;
 
+import dominion.interfaces.Game;
 import dominion.interfaces.Player;
+import dominion.interfaces.Strategy;
+import dominion.strategies.DoNothing;
 
 public class PlayerImpl implements Player {
 
@@ -13,8 +16,10 @@ public class PlayerImpl implements Player {
 	public PlayerDeck hand;
 	public PlayerDeck pile;
 	public PlayerDeck discard;
+	public Strategy strategy;
 
 	public PlayerImpl() {
+		strategy = new DoNothing();
 		hand = new PlayerDeck();
 		discard = new PlayerDeck();
 		pile = new PlayerDeck();
@@ -82,9 +87,8 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	public void turn() {
-		// TODO Auto-generated method stub
-		
+	public void turn(Game game) {
+		strategy.turn(this, game);
 	}
 
 }

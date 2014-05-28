@@ -7,7 +7,14 @@ public class Main {
 
 	public static void main(String[] args) {
 		GameDeck gameDeck = new GameDeck();
-		//We should be able to define a starting deck here
+		gameDeck.put(Card.COPPER, 100);
+		gameDeck.put(Card.SILVER, 100);
+		gameDeck.put(Card.GOLD, 100);
+		gameDeck.put(Card.CURSE, 10);
+		gameDeck.put(Card.DUCHY, 8);
+		gameDeck.put(Card.ESTATE, 8);
+		gameDeck.put(Card.PROVINCE, 8);
+		
 		Game game = new GameImpl(gameDeck);
 
 		Player player0 = new PlayerImpl();

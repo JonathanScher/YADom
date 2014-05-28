@@ -52,7 +52,7 @@ public class GameImpl implements Game {
 		// having a return in a middle of a loop kills me. I don't know why, and
 		// I don't know how to simply get rid of it
 		for (Player player : players) {
-			player.turn();
+			player.turn(this);
 			if (gameDeck.gameOver(numberOfPlayers)) {
 				return true;
 			}

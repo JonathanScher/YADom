@@ -9,5 +9,5 @@ public interface Player extends Comparable<Player> {
 
 	Integer victoryValue();
 
-	void turn();
+	void turn(Game game);
 }
