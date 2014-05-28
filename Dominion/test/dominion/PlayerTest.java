@@ -28,22 +28,54 @@ public class PlayerTest {
 		player.pile = pile;
 	}
 
-	
 	@Test
-	public void toStringPrintsName(){
+	public void toStringPrintsName() {
 		player.setName("test");
 		assertEquals("test", player.toString());
 	}
+
 	@Test
 	public void getGoldReturnsGoldInHand() {
 		// G
 		PlayerDeck hand = new PlayerDeck();
 		hand.add(Card.COPPER, Card.SILVER, Card.GOLD);
 		player.hand = hand;
-		//W
+		// W
 		int actual = player.getGold();
-		//T
+		// T
 		assertEquals(6, actual);
+	}
+
+	@Test
+	public void turnEndsByDiscardingAndDrawing() {
+		// G
+		Game game = mock(Game.class);
+		PlayerDeck pile = new PlayerDeck();
+		pile.add(Card.COPPER, Card.COPPER, Card.COPPER, Card.COPPER, Card.COPPER,
+				Card.COPPER);
+		player.pile = pile;
+		
+		PlayerDeck hand = new PlayerDeck();
+		hand.add(Card.CURSE, Card.CURSE, Card.CURSE, Card.CURSE, Card.CURSE);
+		player.hand = hand;
+		
+		PlayerDeck discard = new PlayerDeck();
+		discard.add(Card.DUCHY);
+		player.discard = discard;
+		// W
+		player.turn(game);
+		// T
+		PlayerDeck expectedPile = new PlayerDeck();
+		expectedPile.add(Card.COPPER);
+		PlayerDeck expectedHand = new PlayerDeck();
+		expectedHand.add(Card.COPPER, Card.COPPER, Card.COPPER, Card.COPPER, Card.COPPER);
+		PlayerDeck expectedDiscard = new PlayerDeck();
+		expectedDiscard.add(Card.DUCHY, Card.CURSE, Card.CURSE, Card.CURSE, Card.CURSE, Card.CURSE);
+		
+		assertEquals(expectedDiscard, player.discard);
+		assertEquals(expectedHand, player.hand);
+		assertEquals(expectedPile, player.pile);
+
 	}
 
 	@Test

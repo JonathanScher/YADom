@@ -89,6 +89,9 @@ public class PlayerImpl implements Player {
 	@Override
 	public void turn(Game game) {
 		strategy.turn(this, game);
+		discard.addAll(hand);
+		hand = new PlayerDeck();
+		drawHand();
 	}
 
 	@Override
