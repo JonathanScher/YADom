@@ -2,6 +2,8 @@ package dominion;
 
 import java.util.List;
 
+import dominion.cards.Card;
+import dominion.deck.PlayerDeck;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 import dominion.interfaces.Strategy;

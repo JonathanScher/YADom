@@ -1,6 +1,5 @@
 package dominion.interfaces;
 
-import dominion.PlayerImpl;
 
 public interface Strategy {
 

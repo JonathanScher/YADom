@@ -1,7 +1,9 @@
-package dominion;
+package dominion.deck;
 
 import java.util.Collections;
 import java.util.HashMap;
+
+import dominion.cards.Card;
 
 public class GameDeck extends HashMap<Card, Integer> {
 	private static final int NUMBER_OF_PILES_TO_BE_DEPLETED_2_PLAYERS = 2;

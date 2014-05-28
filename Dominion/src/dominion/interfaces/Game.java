@@ -2,8 +2,8 @@ package dominion.interfaces;
 
 import java.util.List;
 
-import dominion.Card;
-import dominion.GameDeck;
+import dominion.cards.Card;
+import dominion.deck.GameDeck;
 
 public interface Game {
 	void register(Player player);

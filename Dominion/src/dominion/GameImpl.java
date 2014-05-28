@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import dominion.cards.Card;
+import dominion.deck.GameDeck;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 

@@ -1,6 +1,6 @@
 package dominion.strategies;
 
-import dominion.Card;
+import dominion.cards.Card;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 import dominion.interfaces.Strategy;

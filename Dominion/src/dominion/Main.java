@@ -1,5 +1,7 @@
 package dominion;
 
+import dominion.cards.Card;
+import dominion.deck.GameDeck;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 import dominion.strategies.BigMoney;

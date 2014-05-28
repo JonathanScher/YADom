@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import dominion.cards.Card;
+import dominion.deck.PlayerDeck;
 import dominion.interfaces.Game;
 import dominion.interfaces.Strategy;
 import dominion.mock.PlayerDeckNoShuffle;

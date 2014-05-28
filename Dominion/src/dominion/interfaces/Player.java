@@ -1,6 +1,6 @@
 package dominion.interfaces;
 
-import dominion.Card;
+import dominion.cards.Card;
 
 public interface Player extends Comparable<Player> {
 	void initPile();

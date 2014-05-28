@@ -15,6 +15,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import dominion.cards.Card;
+import dominion.deck.GameDeck;
+import dominion.deck.PlayerDeck;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 

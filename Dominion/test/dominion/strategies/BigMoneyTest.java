@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import dominion.Card;
+import dominion.cards.Card;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 import dominion.interfaces.Strategy;
