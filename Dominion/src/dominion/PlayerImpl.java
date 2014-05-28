@@ -81,4 +81,10 @@ public class PlayerImpl implements Player {
 		return this.victoryValue().compareTo(otherPlayer.victoryValue());
 	}
 
+	@Override
+	public void turn() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

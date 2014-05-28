@@ -8,4 +8,6 @@ public interface Player extends Comparable<Player> {
 	void drawHand();
 
 	Integer victoryValue();
+
+	void turn();
 }

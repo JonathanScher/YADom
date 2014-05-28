@@ -1,12 +1,14 @@
 package dominion;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
@@ -36,6 +38,49 @@ public class GameTest {
 	}
 
 	@Test
+	public void threeTurnsThenGameOver() {
+		// Given
+		gameDeck = Mockito.mock(GameDeck.class);
+		when(gameDeck.gameOver(2)).thenReturn(false).thenReturn(false)
+				.thenReturn(false).thenReturn(true);
+
+		player0 = mock(PlayerImpl.class);
+		player1 = mock(PlayerImpl.class);
+
+		game = new GameImpl(gameDeck);
+		game.register(player0);
+		game.register(player1);
+		// When
+		game.play();
+		// Then
+		verify(player0, times(2)).turn();
+		verify(player1, times(1)).turn();
+	}
+
+	@Test
+	public void threeTurnsThenGameOverThreePlayers() {
+		// Given
+		gameDeck = Mockito.mock(GameDeck.class);
+		when(gameDeck.gameOver(3)).thenReturn(false).thenReturn(false)
+				.thenReturn(false).thenReturn(false).thenReturn(true);
+
+		player0 = mock(PlayerImpl.class);
+		player1 = mock(PlayerImpl.class);
+		Player player2 = mock(PlayerImpl.class);
+
+		game = new GameImpl(gameDeck);
+		game.register(player0);
+		game.register(player1);
+		game.register(player2);
+		// When
+		game.play();
+		// Then
+		verify(player0, times(2)).turn();
+		verify(player1, times(1)).turn();
+		verify(player2, times(1)).turn();
+	}
+
+	@Test
 	public void gameOver() {
 		gameDeck = new GameDeckMock(true);
 		game = new GameImpl(gameDeck);
@@ -43,7 +88,7 @@ public class GameTest {
 		game.register(player0);
 		game.register(player0);
 		assertTrue(game.gameOver());
-		assertEquals(new Integer(3), ((GameDeckMock)gameDeck).numberOfPlayers);
+		assertEquals(new Integer(3), ((GameDeckMock) gameDeck).numberOfPlayers);
 	}
 
 	@Test
@@ -53,9 +98,9 @@ public class GameTest {
 		game.register(player0);
 		game.register(player0);
 		assertFalse(game.gameOver());
-		assertEquals(new Integer(2), ((GameDeckMock)gameDeck).numberOfPlayers);
+		assertEquals(new Integer(2), ((GameDeckMock) gameDeck).numberOfPlayers);
 	}
-	
+
 	@Test
 	public void drawsHandWhenRegisters() {
 		// Given

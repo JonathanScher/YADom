@@ -42,12 +42,23 @@ public class GameImpl implements Game {
 
 	@Override
 	public void play() {
-		// TODO Auto-generated method stub
-		// call each player "turn" until game over
-		//
-		// Game over : after 1000 turns, or no more Province, or enough stack
-		// empty
-		// enough being 2 for a 2 player game, 3 for more than 2 players
+		Integer numberOfPlayers = players.size();
+		Boolean over = gameDeck.gameOver(numberOfPlayers);
+		while (!over) {
+			over = gameTurn(numberOfPlayers);
+		}
+	}
+
+	private Boolean gameTurn(Integer numberOfPlayers) {
+		// having a return in a middle of a loop kills me. I don't know why, and
+		// I don't know how to simply get rid of it
+		for (Player player : players) {
+			player.turn();
+			if (gameDeck.gameOver(numberOfPlayers)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
