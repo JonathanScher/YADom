@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import dominion.interfaces.Game;
 import dominion.interfaces.Strategy;
@@ -25,6 +26,18 @@ public class PlayerTest {
 				Card.COPPER, Card.ESTATE, Card.COPPER, Card.ESTATE,
 				Card.COPPER, Card.ESTATE);
 		player.pile = pile;
+	}
+
+	@Test
+	public void getGoldReturnsGoldInHand() {
+		// G
+		PlayerDeck hand = new PlayerDeck();
+		hand.add(Card.COPPER, Card.SILVER, Card.GOLD);
+		player.hand = hand;
+		//W
+		int actual = player.getGold();
+		//T
+		assertEquals(6, actual);
 	}
 
 	@Test
@@ -103,7 +116,7 @@ public class PlayerTest {
 
 	@Test
 	public void drawHandTakes3FirstCardsIfThereIsOnly3CardsInTheDeckAndDiscardedIsEmpty() {
-	
+
 		PlayerDeck smallDraw = new PlayerDeck();
 		smallDraw.add(Card.COPPER);
 		player.pile = smallDraw;
