@@ -95,4 +95,10 @@ public class PlayerImpl implements Player {
 		
 	}
 
+	@Override
+	public Integer getGold() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

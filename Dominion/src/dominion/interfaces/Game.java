@@ -2,6 +2,7 @@ package dominion.interfaces;
 
 import java.util.List;
 
+import dominion.Card;
 import dominion.GameDeck;
 
 public interface Game {
@@ -11,4 +12,5 @@ public interface Game {
 	void play();
 	Player winner();
 	Boolean gameOver();
+	void buy(Card province);
 }

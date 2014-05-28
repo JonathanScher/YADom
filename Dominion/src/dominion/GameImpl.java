@@ -70,4 +70,10 @@ public class GameImpl implements Game {
 	public Boolean gameOver() {
 		return gameDeck.gameOver(players.size());
 	}
+
+	@Override
+	public void buy(Card province) {
+		// TODO Auto-generated method stub
+		
+	}
 }

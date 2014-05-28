@@ -12,4 +12,6 @@ public interface Player extends Comparable<Player> {
 	void turn(Game game);
 
 	void setStrategy(Strategy strategy);
+
+	Integer getGold();
 }

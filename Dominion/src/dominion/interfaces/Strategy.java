@@ -4,6 +4,6 @@ import dominion.PlayerImpl;
 
 public interface Strategy {
 
-	void turn(PlayerImpl player, Game game);
+	void turn(Player player, Game game);
 
 }
