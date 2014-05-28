@@ -1,7 +1,12 @@
 package dominion;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +17,6 @@ import org.mockito.Mockito;
 
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
-import dominion.mock.GameDeckMock;
-import dominion.mock.PlayerDummy;
 
 public class GameTest {
 	/*
@@ -82,33 +85,33 @@ public class GameTest {
 
 	@Test
 	public void gameOver() {
-		gameDeck = new GameDeckMock(true);
+		gameDeck = mock(GameDeck.class);
+		when(gameDeck.gameOver(3)).thenReturn(true);
 		game = new GameImpl(gameDeck);
 		game.register(player0);
 		game.register(player0);
 		game.register(player0);
 		assertTrue(game.gameOver());
-		assertEquals(new Integer(3), ((GameDeckMock) gameDeck).numberOfPlayers);
 	}
 
 	@Test
 	public void gameNotOver() {
-		gameDeck = new GameDeckMock(false);
+		gameDeck = mock(GameDeck.class);
+		when(gameDeck.gameOver(2)).thenReturn(false);
 		game = new GameImpl(gameDeck);
 		game.register(player0);
 		game.register(player0);
 		assertFalse(game.gameOver());
-		assertEquals(new Integer(2), ((GameDeckMock) gameDeck).numberOfPlayers);
 	}
 
 	@Test
 	public void drawsHandWhenRegisters() {
 		// Given
-		PlayerDummy player = new PlayerDummy();
+		Player player = mock(PlayerImpl.class);
 		// When
 		game.register(player);
 		// Then
-		assertEquals(new Integer(1), player.handDrawn);
+		verify(player).drawHand();
 	}
 
 	@Test

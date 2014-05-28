@@ -1,6 +1,7 @@
 package dominion;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 import java.util.Collections;
 
@@ -46,16 +47,16 @@ public class PlayerTest {
 	}
 	
 	@Test
-	public void initDrawCreatesTheFirstDeck() {
+	public void initPileCreatesTheFirstDeck() {
 		// Given
-		player.pile = new PlayerDeckNoShuffle();
+		player.pile = mock(PlayerDeck.class);
 		//When
 		player.initPile();
 		//Then
-		assertEquals(10, player.pile.size());
-		assertEquals(3, Collections.frequency(player.pile, Card.ESTATE));
-		assertEquals(7, Collections.frequency(player.pile, Card.COPPER));
-		assertEquals(new Integer(1), player.pile.shuffled);
+		verify(player.pile, times(3)).add(Card.ESTATE);
+		verify(player.pile, times(7)).add(Card.COPPER);
+		verify(player.pile).shuffle();
+		
 	}
 
 	@Test
