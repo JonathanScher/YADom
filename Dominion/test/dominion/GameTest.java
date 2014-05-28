@@ -41,6 +41,18 @@ public class GameTest {
 	}
 
 	@Test
+	public void registerInitialisePlayers() {
+		// Given
+		Player player = mock(PlayerImpl.class);
+
+		// When
+		game.register(player);
+		
+		// Then
+		verify(player).initPile();
+	}
+
+	@Test
 	public void threeTurnsThenGameOver() {
 		// Given
 		gameDeck = Mockito.mock(GameDeck.class);
@@ -148,16 +160,16 @@ public class GameTest {
 	@Test
 	public void getNumberOfCardsInHand() {
 		// GIVEN
-		List<Card> player0sHand = new ArrayList<>();
+		PlayerDeck player0sHand = new PlayerDeck();
 		player0sHand.add(Card.COPPER);
 		player0sHand.add(Card.COPPER);
 		player0sHand.add(Card.COPPER);
-		player0.hand.addAll(player0sHand);
+		player0.hand = player0sHand;
 
-		List<Card> player1sHand = new ArrayList<>();
+		PlayerDeck player1sHand = new PlayerDeck();
 		player1sHand.add(Card.COPPER);
 		player1sHand.add(Card.COPPER);
-		player1.hand.addAll(player1sHand);
+		player1.hand = player1sHand;
 
 		List<Integer> expected = new ArrayList<Integer>();
 		expected.add(3);

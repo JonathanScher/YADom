@@ -2,6 +2,7 @@ package dominion;
 
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
+import dominion.strategies.BigMoney;
 
 public class Main {
 
@@ -18,6 +19,7 @@ public class Main {
 		Game game = new GameImpl(gameDeck);
 
 		Player player0 = new PlayerImpl();
+		player0.setStrategy(new BigMoney());
 		Player player1 = new PlayerImpl();
 		//at some point we want to define the strategy for each player here
 		game.register(player0);

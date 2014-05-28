@@ -25,10 +25,8 @@ public class PlayerImpl implements Player {
 		pile = new PlayerDeck();
 	}
 	
-	//TODO: create a method "turn"
-
 	@Override
-	public void initPile() { // TODO: never called!!!
+	public void initPile() {
 		addCardsToDeck(pile, Card.COPPER, INITIAL_NUMBER_OF_COPPERS);
 		addCardsToDeck(pile, Card.ESTATE, INITIAL_NUMBER_OF_ESTATES);
 		pile.shuffle();
@@ -89,6 +87,12 @@ public class PlayerImpl implements Player {
 	@Override
 	public void turn(Game game) {
 		strategy.turn(this, game);
+	}
+
+	@Override
+	public void setStrategy(Strategy strategy) {
+		this.strategy = strategy;
+		
 	}
 
 }
