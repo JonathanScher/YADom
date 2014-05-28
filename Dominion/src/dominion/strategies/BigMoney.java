@@ -16,8 +16,6 @@ public class BigMoney implements Strategy {
 		} else if (player.getGold() > 2) {
 			game.buy(Card.SILVER);
 		}
-		// if I have more than 3 gold, I buy a Silver
-		// if I have less than 3 gold, I do nothing
 	}
 
 }
