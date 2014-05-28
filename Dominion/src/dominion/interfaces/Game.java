@@ -10,4 +10,5 @@ public interface Game {
 	List<Integer> getNumberOfCards();
 	void play();
 	Player winner();
+	Boolean gameOver();
 }

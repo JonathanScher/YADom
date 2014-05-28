@@ -3,6 +3,7 @@ package dominion;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map.Entry;
 
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
@@ -44,7 +45,8 @@ public class GameImpl implements Game {
 		// TODO Auto-generated method stub
 		// call each player "turn" until game over
 		//
-		// Game over : after 1000 turns, or no more Province, or enough stack empty
+		// Game over : after 1000 turns, or no more Province, or enough stack
+		// empty
 		// enough being 2 for a 2 player game, 3 for more than 2 players
 	}
 
@@ -53,4 +55,8 @@ public class GameImpl implements Game {
 		return Collections.max(players);
 	}
 
+	@Override
+	public Boolean gameOver() {
+		return gameDeck.gameOver(players.size());
+	}
 }

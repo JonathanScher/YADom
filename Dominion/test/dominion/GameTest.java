@@ -1,6 +1,6 @@
 package dominion;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
+import dominion.mock.GameDeckMock;
 import dominion.mock.PlayerDummy;
 
 public class GameTest {
@@ -35,12 +36,33 @@ public class GameTest {
 	}
 
 	@Test
+	public void gameOver() {
+		gameDeck = new GameDeckMock(true);
+		game = new GameImpl(gameDeck);
+		game.register(player0);
+		game.register(player0);
+		game.register(player0);
+		assertTrue(game.gameOver());
+		assertEquals(new Integer(3), ((GameDeckMock)gameDeck).numberOfPlayers);
+	}
+
+	@Test
+	public void gameNotOver() {
+		gameDeck = new GameDeckMock(false);
+		game = new GameImpl(gameDeck);
+		game.register(player0);
+		game.register(player0);
+		assertFalse(game.gameOver());
+		assertEquals(new Integer(2), ((GameDeckMock)gameDeck).numberOfPlayers);
+	}
+	
+	@Test
 	public void drawsHandWhenRegisters() {
-		//Given
+		// Given
 		PlayerDummy player = new PlayerDummy();
-		//When
+		// When
 		game.register(player);
-		//Then
+		// Then
 		assertEquals(new Integer(1), player.handDrawn);
 	}
 
