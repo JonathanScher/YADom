@@ -17,10 +17,17 @@ public class PlayerDeckTest {
 	}
 	
 	@Test
-	public void victoryValue(){
+	public void victoryValue() {
 		PlayerDeck playerDeck = new PlayerDeck();
 		playerDeck.add(Card.COPPER, Card.ESTATE, Card.DUCHY);
 		
-		assertEquals(new Integer(3), playerDeck.value());
+		assertEquals(new Integer(3), playerDeck.victoryValue());
+	}
+	@Test
+	public void goldValue(){
+		PlayerDeck playerDeck = new PlayerDeck();
+		playerDeck.add(Card.COPPER, Card.SILVER, Card.GOLD);
+		
+		assertEquals(new Integer(6), playerDeck.goldValue());
 	}
 }

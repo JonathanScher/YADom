@@ -20,10 +20,6 @@ public class PlayerTest {
 	@Before
 	public void init() {
 		player = new PlayerImpl();
-		GameDeck gameDeck = new GameDeck();
-		Game game = new GameImpl(gameDeck);
-		game.register(player);
-
 		pile = new PlayerDeck();
 		pile.add(Card.COPPER, Card.ESTATE, Card.COPPER, Card.ESTATE,
 				Card.COPPER, Card.ESTATE, Card.COPPER, Card.ESTATE,
@@ -107,6 +103,7 @@ public class PlayerTest {
 
 	@Test
 	public void drawHandTakes3FirstCardsIfThereIsOnly3CardsInTheDeckAndDiscardedIsEmpty() {
+	
 		PlayerDeck smallDraw = new PlayerDeck();
 		smallDraw.add(Card.COPPER);
 		player.pile = smallDraw;
@@ -124,13 +121,13 @@ public class PlayerTest {
 	@Test
 	public void drawWithNotEnoughInDrawingPile() {
 		// Given
-		PlayerDeck draw = new PlayerDeck();
-		draw.add(Card.COPPER, Card.COPPER, Card.COPPER);
+		PlayerDeck pile = new PlayerDeck();
+		pile.add(Card.COPPER, Card.COPPER, Card.COPPER);
 		PlayerDeck discard = new PlayerDeckNoShuffle();
 		discard.add(Card.ESTATE, Card.COPPER, Card.ESTATE, Card.ESTATE,
 				Card.ESTATE, Card.ESTATE);
 		PlayerDeck hand = new PlayerDeck();
-		player.pile = draw;
+		player.pile = pile;
 		player.discard = discard;
 		player.hand = hand;
 

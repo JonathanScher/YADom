@@ -76,7 +76,7 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public Integer victoryValue() {
-		return discard.value() + pile.value() + hand.value();
+		return discard.victoryValue() + pile.victoryValue() + hand.victoryValue();
 	}
 
 	@Override
