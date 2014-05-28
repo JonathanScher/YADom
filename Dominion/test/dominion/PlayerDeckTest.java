@@ -30,4 +30,12 @@ public class PlayerDeckTest {
 		
 		assertEquals(new Integer(6), playerDeck.goldValue());
 	}
+	
+	@Test
+	public void goldWithEstates(){
+		PlayerDeck playerDeck = new PlayerDeck();
+		playerDeck.add(Card.COPPER, Card.ESTATE);
+		
+		assertEquals(new Integer(1), playerDeck.goldValue());
+	}
 }
