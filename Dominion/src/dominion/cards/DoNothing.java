@@ -1,8 +1,8 @@
 package dominion.cards;
 
+import dominion.interfaces.CardAction;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
-import dominion.strategies.CardAction;
 
 public class DoNothing implements CardAction {
 

@@ -1,6 +1,6 @@
 package dominion.cards;
 
-import dominion.strategies.CardAction;
+import dominion.interfaces.CardAction;
 
 public enum Card {
 	COPPER(1, 0, 0, new DoNothing()), //
