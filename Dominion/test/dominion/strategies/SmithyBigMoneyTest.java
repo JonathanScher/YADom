@@ -21,11 +21,12 @@ public class SmithyBigMoneyTest {
 	@Mock
 	Game game;
 	Player player;
+	SmithyBigMoney smithy;
 
 	@Before
 	public void init() {
 		player = new PlayerImpl();
-		Strategy smithy = new SmithyBigMoney();
+		smithy = new SmithyBigMoney();
 		player.setStrategy(smithy);
 	}
 
@@ -46,12 +47,37 @@ public class SmithyBigMoneyTest {
 		// T
 		verify(game).buy(Card.SMITHY, player);
 	}
-	
+
 	@Test
 	public void ifNotEnoughGoldDontBuySmithy() throws BuyException {
 		// W
 		player.turn(game);
 		// T
 		verify(game, times(0)).buy(Card.SMITHY, player);
+	}
+
+	@Test
+	public void ifAlreadyBoughtSmithyDontBuyASecond() throws BuyException {
+		player.getHand().add(Card.GOLD, Card.SILVER);
+		player.turn(game);
+		player.getHand().add(Card.GOLD, Card.SILVER);
+		// W
+		player.turn(game);
+		// T
+		verify(game, times(1)).buy(Card.SMITHY, player);
+	}
+
+	@Test
+	public void otherWiseBigMoney() {
+		// G
+		Strategy bigMoney = mock(Strategy.class);
+		smithy.otherStrat = bigMoney;
+		smithy.hasOneSmithy = true;
+		player.getHand().add(Card.GOLD, Card.SILVER);
+		// W
+		smithy.turn(player, game);
+		// Then
+		verify(bigMoney).turn(player, game);
+
 	}
 }

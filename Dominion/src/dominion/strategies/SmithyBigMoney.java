@@ -7,18 +7,24 @@ import dominion.interfaces.Player;
 import dominion.interfaces.Strategy;
 
 public class SmithyBigMoney implements Strategy {
-
+	public boolean hasOneSmithy = false;
+	public Strategy otherStrat;
+	
+	public SmithyBigMoney() {
+		otherStrat = new BigMoney();
+	}
+	
 	@Override
 	public void turn(Player player, Game game) {
-		// - If havn't bought any Smithy yet and, you have 5 gold, and Smithy is
-		// in the GameDeck buy it
-		// - Otherwise play BigMoney
 		if (player.getHand().contains(Card.SMITHY)) {
 			game.playCard(Card.SMITHY);
 		}
 		try {
-			if (player.getGold() >= 4) { // needs a condition to say it's the first one
+			if (!hasOneSmithy && player.getGold() >= 4) {
 				game.buy(Card.SMITHY, player);
+				hasOneSmithy = true;
+			} else {
+				otherStrat.turn(player, game);
 			}
 		} catch (BuyException e) {
 		}
