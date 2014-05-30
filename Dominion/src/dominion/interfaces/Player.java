@@ -1,6 +1,7 @@
 package dominion.interfaces;
 
 import dominion.cards.Card;
+import dominion.deck.PlayerDeck;
 
 public interface Player extends Comparable<Player> {
 	void initPile();
@@ -24,4 +25,6 @@ public interface Player extends Comparable<Player> {
 	void buy(Card card);
 
 	int getBuyLeft();
+
+	PlayerDeck getHand();
 }

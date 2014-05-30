@@ -97,4 +97,10 @@ public class GameImpl implements Game {
 		numberOfCards -= 1;
 		gameDeck.put(card, numberOfCards);
 	}
+
+	@Override
+	public void playCard(Card card) {
+		// TODO Auto-generated method stub
+		
+	}
 }

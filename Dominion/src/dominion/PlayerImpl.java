@@ -138,4 +138,9 @@ public class PlayerImpl implements Player {
 		return buyLeft;
 	}
 
+	@Override
+	public PlayerDeck getHand() {
+		return hand;
+	}
+
 }

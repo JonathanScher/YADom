@@ -14,4 +14,5 @@ public interface Game {
 	Player winner();
 	Boolean gameOver();
 	void buy(Card card, Player player) throws BuyException;
+	void playCard(Card card);
 }
