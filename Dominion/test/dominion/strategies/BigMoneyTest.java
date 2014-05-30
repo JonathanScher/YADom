@@ -1,7 +1,7 @@
 package dominion.strategies;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +11,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import dominion.cards.Card;
 import dominion.exception.BuyException;
-import dominion.exception.PileDepletedException;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 import dominion.interfaces.Strategy;

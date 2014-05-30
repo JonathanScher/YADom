@@ -17,7 +17,7 @@ public class SmithyBigMoney implements Strategy {
 	@Override
 	public void turn(Player player, Game game) {
 		if (player.getHand().contains(Card.SMITHY)) {
-			game.playCard(Card.SMITHY);
+			game.playCard(player, Card.SMITHY);
 		}
 		try {
 			if (!hasOneSmithy && player.getGold() >= 4) {

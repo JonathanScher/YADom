@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import dominion.cards.Card;
-import dominion.deck.PlayerDeck;
 public class PlayerDeckTest {
 	@Test
 	public void addMultipleCards(){

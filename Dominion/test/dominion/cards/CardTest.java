@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import dominion.cards.Card;
-
 public class CardTest {
 
 	@Test

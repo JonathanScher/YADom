@@ -1,7 +1,8 @@
 package dominion.strategies;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,10 +34,8 @@ public class SmithyBigMoneyTest {
 	@Test
 	public void ifSmithyInHandPlayIt() {
 		player.getHand().add(Card.SMITHY);
-		// W
-		player.turn(game);
-		// T
-		verify(game).playCard(Card.SMITHY);
+		smithy.turn(player, game);
+		verify(game).playCard(player, Card.SMITHY);
 	}
 
 	@Test
