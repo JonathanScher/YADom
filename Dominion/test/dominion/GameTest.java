@@ -16,7 +16,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import dominion.cards.Card;
+import dominion.card.Copper;
+import dominion.card.Curse;
+import dominion.card.Duchy;
+import dominion.card.Estate;
+import dominion.card.Province;
 import dominion.deck.GameDeck;
 import dominion.deck.PlayerDeck;
 import dominion.exception.BuyException;
@@ -51,62 +55,62 @@ public class GameTest {
 
 	@Test(expected = PileDepletedException.class)
 	public void tryToBuyACardFromDepletedPile() throws BuyException {
-		gameDeck.put(Card.CURSE, 0);
-		game.buy(Card.CURSE, player0);
+		gameDeck.put(Curse.INSTANCE, 0);
+		game.buy(Curse.INSTANCE, player0);
 	}
 
 	@Test(expected = NotAllowedToBuyException.class)
 	public void tryToBuyTwoCardsWithOneBuyPossible() throws BuyException {
-		gameDeck.put(Card.CURSE, 8);
-		game.buy(Card.CURSE, player0);
-		game.buy(Card.CURSE, player0);
+		gameDeck.put(Curse.INSTANCE, 8);
+		game.buy(Curse.INSTANCE, player0);
+		game.buy(Curse.INSTANCE, player0);
 	}
 
 	@Test
 	public void canBuyTwoCardsInTwoTurns() throws BuyException {
 		//Given
-		gameDeck.put(Card.CURSE, 8);
-		game.buy(Card.CURSE, player0);
+		gameDeck.put(Curse.INSTANCE, 8);
+		game.buy(Curse.INSTANCE, player0);
 		player0.turn(game);
 		//When
-		game.buy(Card.CURSE, player0);
+		game.buy(Curse.INSTANCE, player0);
 		//Then
-		assertEquals(2, Collections.frequency(player0.discard, Card.CURSE));
+		assertEquals(2, Collections.frequency(player0.discard, Curse.INSTANCE));
 	}
 
 	
 	@Test(expected = CardNotInDeckException.class)
 	public void tryToBuyACardNotFromDeck() throws BuyException {
-		gameDeck.put(Card.CURSE, 0);
-		game.buy(Card.DUCHY, player0);
+		gameDeck.put(Curse.INSTANCE, 0);
+		game.buy(Duchy.INSTANCE, player0);
 	}
 	@Test(expected = NotEnoughGoldException.class)
 	public void tryToBuyACardNotEnoughGold() throws BuyException {
-		gameDeck.put(Card.PROVINCE, 5);
-		player1.hand.add(Card.COPPER, Card.COPPER);
-		game.buy(Card.PROVINCE, player0);
+		gameDeck.put(Province.INSTANCE, 5);
+		player1.hand.add(Copper.INSTANCE, Copper.INSTANCE);
+		game.buy(Province.INSTANCE, player0);
 	}
 
 	@Test
 	public void buyACopperAddsACopperInPlayersHand() throws BuyException {
 		// G
 		PlayerDeck discard = mock(PlayerDeck.class);
-		gameDeck.put(Card.COPPER, 10);
+		gameDeck.put(Copper.INSTANCE, 10);
 		player0.discard = discard;
 		// W
-		game.buy(Card.COPPER, player0);
+		game.buy(Copper.INSTANCE, player0);
 		// T
-		verify(discard).add(Card.COPPER);
+		verify(discard).add(Copper.INSTANCE);
 	}
 
 	@Test
 	public void buyACopperRemovesACopperFromGameStack() throws BuyException {
 		// G
-		gameDeck.put(Card.COPPER, 10);
+		gameDeck.put(Copper.INSTANCE, 10);
 		// W
-		game.buy(Card.COPPER, player0);
+		game.buy(Copper.INSTANCE, player0);
 		// T
-		assertEquals(9, (int) gameDeck.get(Card.COPPER));
+		assertEquals(9, (int) gameDeck.get(Copper.INSTANCE));
 	}
 
 	@Test
@@ -198,7 +202,7 @@ public class GameTest {
 	@Test
 	public void winnerPlayer0() {
 		// Given
-		player0.pile.add(Card.ESTATE);
+		player0.pile.add(Estate.INSTANCE);
 		// When
 		Player winner = game.winner();
 		// Then
@@ -208,7 +212,7 @@ public class GameTest {
 	@Test
 	public void winnerPlayer1() {
 		// Given
-		player1.pile.add(Card.ESTATE);
+		player1.pile.add(Estate.INSTANCE);
 		// When
 		Player winner = game.winner();
 		// Then
@@ -217,7 +221,7 @@ public class GameTest {
 
 	@Test
 	public void setInitialGameDeck() {
-		assertEquals(gameDeck, game.getGameDeck());
+		assertEquals(gameDeck, ((GameImpl)game).getGameDeck());
 	}
 
 	@Test
@@ -230,14 +234,14 @@ public class GameTest {
 	public void getNumberOfCardsInHand() {
 		// GIVEN
 		PlayerDeck player0sHand = new PlayerDeck();
-		player0sHand.add(Card.COPPER);
-		player0sHand.add(Card.COPPER);
-		player0sHand.add(Card.COPPER);
+		player0sHand.add(Copper.INSTANCE);
+		player0sHand.add(Copper.INSTANCE);
+		player0sHand.add(Copper.INSTANCE);
 		player0.hand = player0sHand;
 
 		PlayerDeck player1sHand = new PlayerDeck();
-		player1sHand.add(Card.COPPER);
-		player1sHand.add(Card.COPPER);
+		player1sHand.add(Copper.INSTANCE);
+		player1sHand.add(Copper.INSTANCE);
 		player1.hand = player1sHand;
 
 		List<Integer> expected = new ArrayList<Integer>();

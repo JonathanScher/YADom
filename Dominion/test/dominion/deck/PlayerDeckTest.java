@@ -3,17 +3,21 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import dominion.cards.Card;
+import dominion.card.Copper;
+import dominion.card.Duchy;
+import dominion.card.Estate;
+import dominion.card.Gold;
+import dominion.card.Silver;
 public class PlayerDeckTest {
 	@Test
 	public void addMultipleCards(){
 		//Given
 		PlayerDeck playerDeck = new PlayerDeck();
 		PlayerDeck expected = new PlayerDeck();
-		expected.add(Card.COPPER);
-		expected.add(Card.COPPER);
+		expected.add(Copper.INSTANCE);
+		expected.add(Copper.INSTANCE);
 		//When
-		playerDeck.add(Card.COPPER, Card.COPPER);
+		playerDeck.add(Copper.INSTANCE, Copper.INSTANCE);
 		//Then
 		assertEquals(expected, playerDeck);
 	}
@@ -21,14 +25,14 @@ public class PlayerDeckTest {
 	@Test
 	public void victoryValue() {
 		PlayerDeck playerDeck = new PlayerDeck();
-		playerDeck.add(Card.COPPER, Card.ESTATE, Card.DUCHY);
+		playerDeck.add(Copper.INSTANCE, Estate.INSTANCE, Duchy.INSTANCE);
 		
 		assertEquals(new Integer(3), playerDeck.victoryValue());
 	}
 	@Test
 	public void goldValue(){
 		PlayerDeck playerDeck = new PlayerDeck();
-		playerDeck.add(Card.COPPER, Card.SILVER, Card.GOLD);
+		playerDeck.add(Copper.INSTANCE, Silver.INSTANCE, Gold.INSTANCE);
 		
 		assertEquals(new Integer(6), playerDeck.goldValue());
 	}
@@ -36,7 +40,7 @@ public class PlayerDeckTest {
 	@Test
 	public void goldWithEstates(){
 		PlayerDeck playerDeck = new PlayerDeck();
-		playerDeck.add(Card.COPPER, Card.ESTATE);
+		playerDeck.add(Copper.INSTANCE, Estate.INSTANCE);
 		
 		assertEquals(new Integer(1), playerDeck.goldValue());
 	}

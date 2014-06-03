@@ -2,8 +2,10 @@ package dominion;
 
 import java.util.List;
 
-import dominion.cards.Card;
+import dominion.card.Copper;
+import dominion.card.Estate;
 import dominion.deck.PlayerDeck;
+import dominion.interfaces.Card;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 import dominion.interfaces.Strategy;
@@ -34,8 +36,8 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void initPile() {
-		addCardsToDeck(pile, Card.COPPER, INITIAL_NUMBER_OF_COPPERS);
-		addCardsToDeck(pile, Card.ESTATE, INITIAL_NUMBER_OF_ESTATES);
+		addCardsToDeck(pile, Copper.INSTANCE, INITIAL_NUMBER_OF_COPPERS);
+		addCardsToDeck(pile, Estate.INSTANCE, INITIAL_NUMBER_OF_ESTATES);
 		pile.shuffle();
 	}
 

@@ -1,6 +1,8 @@
 package dominion.strategies;
 
-import dominion.cards.Card;
+import dominion.card.Gold;
+import dominion.card.Province;
+import dominion.card.Silver;
 import dominion.exception.BuyException;
 import dominion.exception.CardNotInDeckException;
 import dominion.exception.PileDepletedException;
@@ -14,11 +16,11 @@ public class BigMoney implements Strategy {
 	public void turn(Player player, Game game) {
 		try{
 		if (player.getGold() > 7) {
-			game.buy(Card.PROVINCE, player);
+			game.buy(Province.INSTANCE, player);
 		} else if (player.getGold() > 5) {
-			game.buy(Card.GOLD, player);
+			game.buy(Gold.INSTANCE, player);
 		} else if (player.getGold() > 2) {
-			game.buy(Card.SILVER, player);
+			game.buy(Silver.INSTANCE, player);
 		}
 		} catch (PileDepletedException e) {
 			System.err.println("BigMoney is trying to buy from a depleted pile");

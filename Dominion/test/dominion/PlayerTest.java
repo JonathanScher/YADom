@@ -8,7 +8,12 @@ import static org.mockito.Mockito.verify;
 import org.junit.Before;
 import org.junit.Test;
 
-import dominion.cards.Card;
+import dominion.card.Copper;
+import dominion.card.Curse;
+import dominion.card.Duchy;
+import dominion.card.Estate;
+import dominion.card.Gold;
+import dominion.card.Silver;
 import dominion.deck.PlayerDeck;
 import dominion.interfaces.Game;
 import dominion.interfaces.Strategy;
@@ -23,9 +28,9 @@ public class PlayerTest {
 	public void init() {
 		player = new PlayerImpl();
 		pile = new PlayerDeck();
-		pile.add(Card.COPPER, Card.ESTATE, Card.COPPER, Card.ESTATE,
-				Card.COPPER, Card.ESTATE, Card.COPPER, Card.ESTATE,
-				Card.COPPER, Card.ESTATE);
+		pile.add(Copper.INSTANCE, Estate.INSTANCE, Copper.INSTANCE, Estate.INSTANCE,
+				Copper.INSTANCE, Estate.INSTANCE, Copper.INSTANCE, Estate.INSTANCE,
+				Copper.INSTANCE, Estate.INSTANCE);
 		player.pile = pile;
 	}
 
@@ -39,7 +44,7 @@ public class PlayerTest {
 	public void getGoldReturnsGoldInHand() {
 		// G
 		PlayerDeck hand = new PlayerDeck();
-		hand.add(Card.COPPER, Card.SILVER, Card.GOLD);
+		hand.add(Copper.INSTANCE, Silver.INSTANCE, Gold.INSTANCE);
 		player.hand = hand;
 		// W
 		int actual = player.getGold();
@@ -52,26 +57,26 @@ public class PlayerTest {
 		// G
 		Game game = mock(Game.class);
 		PlayerDeck pile = new PlayerDeck();
-		pile.add(Card.COPPER, Card.COPPER, Card.COPPER, Card.COPPER, Card.COPPER,
-				Card.COPPER);
+		pile.add(Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE,
+				Copper.INSTANCE);
 		player.pile = pile;
 		
 		PlayerDeck hand = new PlayerDeck();
-		hand.add(Card.CURSE, Card.CURSE, Card.CURSE, Card.CURSE, Card.CURSE);
+		hand.add(Curse.INSTANCE, Curse.INSTANCE, Curse.INSTANCE, Curse.INSTANCE, Curse.INSTANCE);
 		player.hand = hand;
 		
 		PlayerDeck discard = new PlayerDeck();
-		discard.add(Card.DUCHY);
+		discard.add(Duchy.INSTANCE);
 		player.discard = discard;
 		// W
 		player.turn(game);
 		// T
 		PlayerDeck expectedPile = new PlayerDeck();
-		expectedPile.add(Card.COPPER);
+		expectedPile.add(Copper.INSTANCE);
 		PlayerDeck expectedHand = new PlayerDeck();
-		expectedHand.add(Card.COPPER, Card.COPPER, Card.COPPER, Card.COPPER, Card.COPPER);
+		expectedHand.add(Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE);
 		PlayerDeck expectedDiscard = new PlayerDeck();
-		expectedDiscard.add(Card.DUCHY, Card.CURSE, Card.CURSE, Card.CURSE, Card.CURSE, Card.CURSE);
+		expectedDiscard.add(Duchy.INSTANCE, Curse.INSTANCE, Curse.INSTANCE, Curse.INSTANCE, Curse.INSTANCE, Curse.INSTANCE);
 		
 		assertEquals(expectedDiscard, player.discard);
 		assertEquals(expectedHand, player.hand);
@@ -102,9 +107,9 @@ public class PlayerTest {
 		player.pile = new PlayerDeck();
 		player.hand = new PlayerDeck();
 		player.discard = new PlayerDeck();
-		player.pile.add(Card.ESTATE);
-		player.hand.add(Card.ESTATE);
-		player.discard.add(Card.ESTATE);
+		player.pile.add(Estate.INSTANCE);
+		player.hand.add(Estate.INSTANCE);
+		player.discard.add(Estate.INSTANCE);
 
 		Integer expected = 3;
 		// When
@@ -120,8 +125,8 @@ public class PlayerTest {
 		// When
 		player.initPile();
 		// Then
-		verify(player.pile, times(3)).add(Card.ESTATE);
-		verify(player.pile, times(7)).add(Card.COPPER);
+		verify(player.pile, times(3)).add(Estate.INSTANCE);
+		verify(player.pile, times(7)).add(Copper.INSTANCE);
 		verify(player.pile).shuffle();
 
 	}
@@ -130,8 +135,8 @@ public class PlayerTest {
 	public void drawHandTakes5FirstCards() {
 		// Given
 		PlayerDeck expected = new PlayerDeck();
-		expected.add(Card.COPPER, Card.ESTATE, Card.COPPER, Card.ESTATE,
-				Card.COPPER);
+		expected.add(Copper.INSTANCE, Estate.INSTANCE, Copper.INSTANCE, Estate.INSTANCE,
+				Copper.INSTANCE);
 
 		// When
 		player.drawHand();
@@ -143,8 +148,8 @@ public class PlayerTest {
 	@Test
 	public void drawHandRemovesCardsFromDeck() {
 		PlayerDeck expected = new PlayerDeck();
-		expected.add(Card.ESTATE, Card.COPPER, Card.ESTATE, Card.COPPER,
-				Card.ESTATE);
+		expected.add(Estate.INSTANCE, Copper.INSTANCE, Estate.INSTANCE, Copper.INSTANCE,
+				Estate.INSTANCE);
 
 		// When
 		player.drawHand();
@@ -157,11 +162,11 @@ public class PlayerTest {
 	public void drawHandTakes3FirstCardsIfThereIsOnly3CardsInTheDeckAndDiscardedIsEmpty() {
 
 		PlayerDeck smallDraw = new PlayerDeck();
-		smallDraw.add(Card.COPPER);
+		smallDraw.add(Copper.INSTANCE);
 		player.pile = smallDraw;
 
 		PlayerDeck expected = new PlayerDeck();
-		expected.add(Card.COPPER);
+		expected.add(Copper.INSTANCE);
 
 		// When
 		player.drawHand();
@@ -174,21 +179,21 @@ public class PlayerTest {
 	public void drawWithNotEnoughInDrawingPile() {
 		// Given
 		PlayerDeck pile = new PlayerDeck();
-		pile.add(Card.COPPER, Card.COPPER, Card.COPPER);
+		pile.add(Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE);
 		PlayerDeck discard = new PlayerDeckNoShuffle();
-		discard.add(Card.ESTATE, Card.COPPER, Card.ESTATE, Card.ESTATE,
-				Card.ESTATE, Card.ESTATE);
+		discard.add(Estate.INSTANCE, Copper.INSTANCE, Estate.INSTANCE, Estate.INSTANCE,
+				Estate.INSTANCE, Estate.INSTANCE);
 		PlayerDeck hand = new PlayerDeck();
 		player.pile = pile;
 		player.discard = discard;
 		player.hand = hand;
 
 		PlayerDeck expectedDraw = new PlayerDeck();
-		expectedDraw.add(Card.ESTATE, Card.ESTATE, Card.ESTATE, Card.ESTATE);
+		expectedDraw.add(Estate.INSTANCE, Estate.INSTANCE, Estate.INSTANCE, Estate.INSTANCE);
 		PlayerDeck expectedDiscard = new PlayerDeck();
 		PlayerDeck expectedHand = new PlayerDeck();
-		expectedHand.add(Card.COPPER, Card.COPPER, Card.COPPER, Card.ESTATE,
-				Card.COPPER);
+		expectedHand.add(Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE, Estate.INSTANCE,
+				Copper.INSTANCE);
 		// When
 		player.drawHand();
 		// Then

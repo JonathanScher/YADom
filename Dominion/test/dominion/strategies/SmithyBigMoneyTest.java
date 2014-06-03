@@ -11,7 +11,9 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import dominion.PlayerImpl;
-import dominion.cards.Card;
+import dominion.card.Gold;
+import dominion.card.Silver;
+import dominion.card.Smithy;
 import dominion.exception.BuyException;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
@@ -33,18 +35,18 @@ public class SmithyBigMoneyTest {
 
 	@Test
 	public void ifSmithyInHandPlayIt() {
-		player.getHand().add(Card.SMITHY);
+		player.getHand().add(Smithy.INSTANCE);
 		smithy.turn(player, game);
-		verify(game).playCard(player, Card.SMITHY);
+		verify(game).playCard(player, Smithy.INSTANCE);
 	}
 
 	@Test
 	public void ifNoSmithyBoughtBuyOne() throws BuyException {
-		player.getHand().add(Card.GOLD, Card.SILVER);
+		player.getHand().add(Gold.INSTANCE, Silver.INSTANCE);
 		// W
 		player.turn(game);
 		// T
-		verify(game).buy(Card.SMITHY, player);
+		verify(game).buy(Smithy.INSTANCE, player);
 	}
 
 	@Test
@@ -52,18 +54,18 @@ public class SmithyBigMoneyTest {
 		// W
 		player.turn(game);
 		// T
-		verify(game, times(0)).buy(Card.SMITHY, player);
+		verify(game, times(0)).buy(Smithy.INSTANCE, player);
 	}
 
 	@Test
 	public void ifAlreadyBoughtSmithyDontBuyASecond() throws BuyException {
-		player.getHand().add(Card.GOLD, Card.SILVER);
+		player.getHand().add(Gold.INSTANCE, Silver.INSTANCE);
 		player.turn(game);
-		player.getHand().add(Card.GOLD, Card.SILVER);
+		player.getHand().add(Gold.INSTANCE, Silver.INSTANCE);
 		// W
 		player.turn(game);
 		// T
-		verify(game, times(1)).buy(Card.SMITHY, player);
+		verify(game, times(1)).buy(Smithy.INSTANCE, player);
 	}
 
 	@Test
@@ -72,7 +74,7 @@ public class SmithyBigMoneyTest {
 		Strategy bigMoney = mock(Strategy.class);
 		smithy.otherStrat = bigMoney;
 		smithy.hasOneSmithy = true;
-		player.getHand().add(Card.GOLD, Card.SILVER);
+		player.getHand().add(Gold.INSTANCE, Silver.INSTANCE);
 		// W
 		smithy.turn(player, game);
 		// Then

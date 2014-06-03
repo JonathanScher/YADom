@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import dominion.cards.Card;
 import dominion.deck.GameDeck;
 import dominion.exception.BuyException;
 import dominion.exception.CardNotInDeckException;
 import dominion.exception.NotAllowedToBuyException;
 import dominion.exception.NotEnoughGoldException;
 import dominion.exception.PileDepletedException;
+import dominion.interfaces.Card;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 
@@ -86,7 +86,7 @@ public class GameImpl implements Game {
 		if (gameDeck.get(card) < 1) {
 			throw new PileDepletedException();
 		}
-		if (player.getGold() < card.cost) {
+		if (player.getGold() < card.getCost()) {
 			throw new NotEnoughGoldException();
 		}
 		if (player.getBuyLeft() < 1) {

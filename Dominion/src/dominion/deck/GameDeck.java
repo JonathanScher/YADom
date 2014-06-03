@@ -3,7 +3,8 @@ package dominion.deck;
 import java.util.Collections;
 import java.util.HashMap;
 
-import dominion.cards.Card;
+import dominion.card.Province;
+import dominion.interfaces.Card;
 
 public class GameDeck extends HashMap<Card, Integer> {
 	private static final int NUMBER_OF_PILES_TO_BE_DEPLETED_2_PLAYERS = 2;
@@ -24,6 +25,6 @@ public class GameDeck extends HashMap<Card, Integer> {
 	}
 
 	private Boolean provincesAreGone() {
-		return get(Card.PROVINCE) != null && get(Card.PROVINCE) == 0;
+		return get(Province.INSTANCE) != null && get(Province.INSTANCE) == 0;
 	}
 }

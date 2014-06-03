@@ -1,6 +1,12 @@
 package dominion;
 
-import dominion.cards.Card;
+import dominion.card.Copper;
+import dominion.card.Curse;
+import dominion.card.Duchy;
+import dominion.card.Estate;
+import dominion.card.Gold;
+import dominion.card.Province;
+import dominion.card.Silver;
 import dominion.deck.GameDeck;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
@@ -10,13 +16,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		GameDeck gameDeck = new GameDeck();
-		gameDeck.put(Card.COPPER, 100);
-		gameDeck.put(Card.SILVER, 100);
-		gameDeck.put(Card.GOLD, 100);
-		gameDeck.put(Card.CURSE, 10);
-		gameDeck.put(Card.DUCHY, 8);
-		gameDeck.put(Card.ESTATE, 8);
-		gameDeck.put(Card.PROVINCE, 8);
+		gameDeck.put(Copper.INSTANCE, 100);
+		gameDeck.put(Silver.INSTANCE, 100);
+		gameDeck.put(Gold.INSTANCE, 100);
+		gameDeck.put(Curse.INSTANCE, 10);
+		gameDeck.put(Duchy.INSTANCE, 8);
+		gameDeck.put(Estate.INSTANCE, 8);
+		gameDeck.put(Province.INSTANCE, 8);
 
 		Game game = new GameImpl(gameDeck);
 

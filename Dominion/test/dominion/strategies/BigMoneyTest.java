@@ -9,7 +9,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import dominion.cards.Card;
+import dominion.card.Gold;
+import dominion.card.Province;
+import dominion.card.Silver;
 import dominion.exception.BuyException;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
@@ -36,7 +38,7 @@ public class BigMoneyTest {
 		//When
 		bigMoney.turn(player, game);
 		//Then
-		verify(game).buy(Card.PROVINCE, player);
+		verify(game).buy(Province.INSTANCE, player);
 	}
 	
 	@Test
@@ -46,7 +48,7 @@ public class BigMoneyTest {
 		//When
 		bigMoney.turn(player, game);
 		//Then
-		verify(game).buy(Card.GOLD, player);
+		verify(game).buy(Gold.INSTANCE, player);
 	}
 
 	@Test
@@ -56,7 +58,7 @@ public class BigMoneyTest {
 		//When
 		bigMoney.turn(player, game);
 		//Then
-		verify(game).buy(Card.SILVER, player);
+		verify(game).buy(Silver.INSTANCE, player);
 	}
 
 }
