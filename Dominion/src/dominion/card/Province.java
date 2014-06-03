@@ -1,7 +1,7 @@
 package dominion.card;
 
+import dominion.card.data.CardData;
 import dominion.interfaces.Card;
-import dominion.interfaces.CardName;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 
@@ -10,10 +10,7 @@ public class Province extends Card {
 	
 	
 	private Province() {
-		name = CardName.PROVINCE;
-		victoryValue = 0;
-		cost = 5;
-		goldValue = 0;
+		data = CardData.PROVINCE;
 	}
 	
 	@Override

@@ -1,8 +1,8 @@
-package dominion.interfaces;
+package dominion.card.data;
 
 
 
-public enum CardName {
+public enum CardData {
 	COPPER(1, 0, 0), //
 	ESTATE(0, 1, 2), //
 	DUCHY(0, 2, 5), //
@@ -15,7 +15,7 @@ public enum CardName {
 	public Integer victoryValue;
 	public Integer cost;
 
-	CardName(Integer goldValue, Integer victoryValue, Integer cost) {
+	CardData(Integer goldValue, Integer victoryValue, Integer cost) {
 		this.goldValue = goldValue;
 		this.victoryValue = victoryValue;
 		this.cost = cost;

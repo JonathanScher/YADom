@@ -1,25 +1,24 @@
 package dominion.interfaces;
 
+import dominion.card.data.CardData;
+
 public abstract class Card {
-	protected CardName name;
-	protected Integer victoryValue;
-	protected Integer cost;
-	protected Integer goldValue;
+	protected CardData data;
 	
-	public CardName getName() {
-		return name;
+	public CardData getData() {
+		return data;
 	}
 
 	public Integer getVictoryValue() {
-		return victoryValue;
+		return data.victoryValue;
 	}
 
 	public Integer getCost() {
-		return cost;
+		return data.cost;
 	}
 
 	public Integer getGoldValue() {
-		return goldValue;
+		return data.goldValue;
 	}
 
 	public abstract void play(Game game, Player player);
