@@ -11,6 +11,7 @@ import dominion.deck.GameDeck;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 import dominion.strategies.BigMoney;
+import dominion.strategies.SmithyBigMoney;
 
 public class Main {
 
@@ -28,6 +29,7 @@ public class Main {
 
 		Player player0 = new PlayerImpl();
 		player0.setName("Player 0");
+		player0.setStrategy(new SmithyBigMoney());
 		Player player1 = new PlayerImpl();
 		player1.setName("Player 1");
 		player1.setStrategy(new BigMoney());
@@ -35,7 +37,7 @@ public class Main {
 		game.register(player0);
 		game.register(player1);
 
-		game.play(); // not implemented
+		game.play();
 		System.out.println("winner is: " + game.winner());
 	}
 
