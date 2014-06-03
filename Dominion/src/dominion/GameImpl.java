@@ -27,10 +27,6 @@ public class GameImpl implements Game {
 		return gameDeck;
 	}
 
-	public Player getPlayer(int playerNumber) {
-		return players.get(playerNumber);
-	}
-
 	@Override
 	public void register(Player player) {
 		player.initPile();
