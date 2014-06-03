@@ -25,20 +25,31 @@ public class Main {
 		gameDeck.put(Estate.INSTANCE, 8);
 		gameDeck.put(Province.INSTANCE, 8);
 
-		Game game = new GameImpl(gameDeck);
+		Integer player0wins = 0;
+		Integer numberOfGames = 1000000;
+		for (int i = 0; i < numberOfGames; i++) {
+			Game game = new GameImpl(gameDeck);
 
-		Player player0 = new PlayerImpl();
-		player0.setName("Player 0");
-		player0.setStrategy(new SmithyBigMoney());
-		Player player1 = new PlayerImpl();
-		player1.setName("Player 1");
-		player1.setStrategy(new BigMoney());
+			Player player0 = new PlayerImpl();
+			player0.setName("Player 0");
+			player0.setStrategy(new SmithyBigMoney());
+			Player player1 = new PlayerImpl();
+			player1.setName("Player 1");
+			player1.setStrategy(new BigMoney());
 
-		game.register(player0);
-		game.register(player1);
+			game.register(player0);
+			game.register(player1);
 
-		game.play();
-		System.out.println("winner is: " + game.winner());
+			game.play();
+			Player winner = game.winner();
+			if (winner.equals(player0)) {
+				player0wins++;
+			}
+		}
+		System.out.println("Player 0 wins"
+				+ player0wins);
+		System.out.println("Player 0 wins, in %: "
+				+ (Double.valueOf(player0wins) / Double.valueOf(numberOfGames)) * 100d);
 	}
 
 }
