@@ -21,6 +21,7 @@ import dominion.card.Curse;
 import dominion.card.Duchy;
 import dominion.card.Estate;
 import dominion.card.Province;
+import dominion.card.Smithy;
 import dominion.deck.GameDeck;
 import dominion.deck.PlayerDeck;
 import dominion.exception.BuyException;
@@ -28,6 +29,7 @@ import dominion.exception.CardNotInDeckException;
 import dominion.exception.NotAllowedToBuyException;
 import dominion.exception.NotEnoughGoldException;
 import dominion.exception.PileDepletedException;
+import dominion.interfaces.Card;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 
@@ -53,6 +55,16 @@ public class GameTest {
 		cards = player1.getPlayerDeck();
 	}
 
+	@Test
+	public void playCard() {
+		// G
+		Card card = mock(Smithy.class);
+		// W
+		game.playCard(player0, card);
+		// T
+		verify(card).play(game, player0);
+	}
+
 	@Test(expected = PileDepletedException.class)
 	public void tryToBuyACardFromDepletedPile() throws BuyException {
 		gameDeck.put(Curse.INSTANCE, 0);
@@ -68,22 +80,22 @@ public class GameTest {
 
 	@Test
 	public void canBuyTwoCardsInTwoTurns() throws BuyException {
-		//Given
+		// Given
 		gameDeck.put(Curse.INSTANCE, 8);
 		game.buy(Curse.INSTANCE, player0);
 		player0.turn(game);
-		//When
+		// When
 		game.buy(Curse.INSTANCE, player0);
-		//Then
+		// Then
 		assertEquals(2, Collections.frequency(player0.discard, Curse.INSTANCE));
 	}
 
-	
 	@Test(expected = CardNotInDeckException.class)
 	public void tryToBuyACardNotFromDeck() throws BuyException {
 		gameDeck.put(Curse.INSTANCE, 0);
 		game.buy(Duchy.INSTANCE, player0);
 	}
+
 	@Test(expected = NotEnoughGoldException.class)
 	public void tryToBuyACardNotEnoughGold() throws BuyException {
 		gameDeck.put(Province.INSTANCE, 5);
@@ -221,7 +233,7 @@ public class GameTest {
 
 	@Test
 	public void setInitialGameDeck() {
-		assertEquals(gameDeck, ((GameImpl)game).getGameDeck());
+		assertEquals(gameDeck, ((GameImpl) game).getGameDeck());
 	}
 
 	@Test

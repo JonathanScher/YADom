@@ -99,8 +99,7 @@ public class GameImpl implements Game {
 	}
 
 	@Override
-	public void playCard(Player player, Card smithy) {
-		// TODO Auto-generated method stub
-		
+	public void playCard(Player player, Card card) {
+		card.play(this, player);
 	}
 }
