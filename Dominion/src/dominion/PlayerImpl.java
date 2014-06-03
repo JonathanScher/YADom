@@ -48,13 +48,9 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void drawHand() {
-		if (pile.size() < DRAWING_SIZE) {
-			drawAndShuffle();
-		} else {
-			drawFromDrawingPile(DRAWING_SIZE);
-		}
+		draw(DRAWING_SIZE);
 	}
-
+	
 	public PlayerDeck getPlayerDeck() {
 		return pile;
 	}
@@ -66,14 +62,14 @@ public class PlayerImpl implements Player {
 		}
 	}
 
-	private void drawAndShuffle() {
+	private void drawAndShuffle(Integer numberOfCards) {
 		int intialDraw = pile.size();
 		drawFromDrawingPile(intialDraw);
 		discard.shuffle();
 		pile = discard;
 		discard = new PlayerDeck();
 
-		drawFromDrawingPile(Math.min(5 - intialDraw, pile.size()));
+		drawFromDrawingPile(Math.min(numberOfCards - intialDraw, pile.size()));
 	}
 
 	private void drawFromDrawingPile(int numberOfCards) {
@@ -143,6 +139,15 @@ public class PlayerImpl implements Player {
 	@Override
 	public PlayerDeck getHand() {
 		return hand;
+	}
+
+	@Override
+	public void draw(Integer numberOfCards) {
+		if (pile.size() < numberOfCards) {
+			drawAndShuffle(numberOfCards);
+		} else {
+			drawFromDrawingPile(numberOfCards);
+		}
 	}
 
 }

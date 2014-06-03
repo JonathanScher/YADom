@@ -28,10 +28,19 @@ public class PlayerTest {
 	public void init() {
 		player = new PlayerImpl();
 		pile = new PlayerDeck();
-		pile.add(Copper.INSTANCE, Estate.INSTANCE, Copper.INSTANCE, Estate.INSTANCE,
-				Copper.INSTANCE, Estate.INSTANCE, Copper.INSTANCE, Estate.INSTANCE,
-				Copper.INSTANCE, Estate.INSTANCE);
+		pile.add(Copper.INSTANCE, Estate.INSTANCE, Copper.INSTANCE,
+				Estate.INSTANCE, Copper.INSTANCE, Estate.INSTANCE,
+				Copper.INSTANCE, Estate.INSTANCE, Copper.INSTANCE,
+				Estate.INSTANCE);
 		player.pile = pile;
+	}
+
+	@Test
+	public void draw() {
+		PlayerDeck expected = new PlayerDeck();
+		expected.add(Copper.INSTANCE, Estate.INSTANCE);
+		player.draw(2);
+		assertEquals(expected, player.hand);
 	}
 
 	@Test
@@ -57,14 +66,15 @@ public class PlayerTest {
 		// G
 		Game game = mock(Game.class);
 		PlayerDeck pile = new PlayerDeck();
-		pile.add(Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE,
-				Copper.INSTANCE);
+		pile.add(Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE,
+				Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE);
 		player.pile = pile;
-		
+
 		PlayerDeck hand = new PlayerDeck();
-		hand.add(Curse.INSTANCE, Curse.INSTANCE, Curse.INSTANCE, Curse.INSTANCE, Curse.INSTANCE);
+		hand.add(Curse.INSTANCE, Curse.INSTANCE, Curse.INSTANCE,
+				Curse.INSTANCE, Curse.INSTANCE);
 		player.hand = hand;
-		
+
 		PlayerDeck discard = new PlayerDeck();
 		discard.add(Duchy.INSTANCE);
 		player.discard = discard;
@@ -74,10 +84,12 @@ public class PlayerTest {
 		PlayerDeck expectedPile = new PlayerDeck();
 		expectedPile.add(Copper.INSTANCE);
 		PlayerDeck expectedHand = new PlayerDeck();
-		expectedHand.add(Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE);
+		expectedHand.add(Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE,
+				Copper.INSTANCE, Copper.INSTANCE);
 		PlayerDeck expectedDiscard = new PlayerDeck();
-		expectedDiscard.add(Duchy.INSTANCE, Curse.INSTANCE, Curse.INSTANCE, Curse.INSTANCE, Curse.INSTANCE, Curse.INSTANCE);
-		
+		expectedDiscard.add(Duchy.INSTANCE, Curse.INSTANCE, Curse.INSTANCE,
+				Curse.INSTANCE, Curse.INSTANCE, Curse.INSTANCE);
+
 		assertEquals(expectedDiscard, player.discard);
 		assertEquals(expectedHand, player.hand);
 		assertEquals(expectedPile, player.pile);
@@ -135,8 +147,8 @@ public class PlayerTest {
 	public void drawHandTakes5FirstCards() {
 		// Given
 		PlayerDeck expected = new PlayerDeck();
-		expected.add(Copper.INSTANCE, Estate.INSTANCE, Copper.INSTANCE, Estate.INSTANCE,
-				Copper.INSTANCE);
+		expected.add(Copper.INSTANCE, Estate.INSTANCE, Copper.INSTANCE,
+				Estate.INSTANCE, Copper.INSTANCE);
 
 		// When
 		player.drawHand();
@@ -148,8 +160,8 @@ public class PlayerTest {
 	@Test
 	public void drawHandRemovesCardsFromDeck() {
 		PlayerDeck expected = new PlayerDeck();
-		expected.add(Estate.INSTANCE, Copper.INSTANCE, Estate.INSTANCE, Copper.INSTANCE,
-				Estate.INSTANCE);
+		expected.add(Estate.INSTANCE, Copper.INSTANCE, Estate.INSTANCE,
+				Copper.INSTANCE, Estate.INSTANCE);
 
 		// When
 		player.drawHand();
@@ -181,19 +193,20 @@ public class PlayerTest {
 		PlayerDeck pile = new PlayerDeck();
 		pile.add(Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE);
 		PlayerDeck discard = new PlayerDeckNoShuffle();
-		discard.add(Estate.INSTANCE, Copper.INSTANCE, Estate.INSTANCE, Estate.INSTANCE,
-				Estate.INSTANCE, Estate.INSTANCE);
+		discard.add(Estate.INSTANCE, Copper.INSTANCE, Estate.INSTANCE,
+				Estate.INSTANCE, Estate.INSTANCE, Estate.INSTANCE);
 		PlayerDeck hand = new PlayerDeck();
 		player.pile = pile;
 		player.discard = discard;
 		player.hand = hand;
 
 		PlayerDeck expectedDraw = new PlayerDeck();
-		expectedDraw.add(Estate.INSTANCE, Estate.INSTANCE, Estate.INSTANCE, Estate.INSTANCE);
+		expectedDraw.add(Estate.INSTANCE, Estate.INSTANCE, Estate.INSTANCE,
+				Estate.INSTANCE);
 		PlayerDeck expectedDiscard = new PlayerDeck();
 		PlayerDeck expectedHand = new PlayerDeck();
-		expectedHand.add(Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE, Estate.INSTANCE,
-				Copper.INSTANCE);
+		expectedHand.add(Copper.INSTANCE, Copper.INSTANCE, Copper.INSTANCE,
+				Estate.INSTANCE, Copper.INSTANCE);
 		// When
 		player.drawHand();
 		// Then
