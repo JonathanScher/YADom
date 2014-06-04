@@ -7,6 +7,7 @@ import dominion.card.Estate;
 import dominion.card.Gold;
 import dominion.card.Province;
 import dominion.card.Silver;
+import dominion.card.Smithy;
 import dominion.deck.GameDeck;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
@@ -24,9 +25,10 @@ public class Main {
 		gameDeck.put(Duchy.INSTANCE, 8);
 		gameDeck.put(Estate.INSTANCE, 8);
 		gameDeck.put(Province.INSTANCE, 8);
+		gameDeck.put(Smithy.INSTANCE, 8);
 
 		Integer player0wins = 0;
-		Integer numberOfGames = 1000000;
+		Integer numberOfGames = 100000;
 		for (int i = 0; i < numberOfGames; i++) {
 			Game game = new GameImpl(gameDeck);
 

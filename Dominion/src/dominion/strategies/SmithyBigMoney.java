@@ -1,5 +1,7 @@
 package dominion.strategies;
 
+import org.apache.log4j.Logger;
+
 import dominion.card.Smithy;
 import dominion.exception.BuyException;
 import dominion.interfaces.Game;
@@ -7,6 +9,8 @@ import dominion.interfaces.Player;
 import dominion.interfaces.Strategy;
 
 public class SmithyBigMoney implements Strategy {
+	static final Logger logger = Logger.getLogger(SmithyBigMoney.class);
+	
 	public boolean hasOneSmithy = false;
 	public Strategy otherStrat;
 	
@@ -16,6 +20,8 @@ public class SmithyBigMoney implements Strategy {
 	
 	@Override
 	public void turn(Player player, Game game) {
+		logger.info("new turn for Smithy Big Money");
+		
 		if (player.getHand().contains(Smithy.INSTANCE)) {
 			game.playCard(player, Smithy.INSTANCE);
 		}
@@ -27,6 +33,7 @@ public class SmithyBigMoney implements Strategy {
 				otherStrat.turn(player, game);
 			}
 		} catch (BuyException e) {
+			logger.error("buy exception for SmithyBigMoney", e);
 		}
 	}
 
