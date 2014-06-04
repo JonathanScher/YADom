@@ -28,7 +28,7 @@ public class Main {
 		gameDeck.put(Smithy.INSTANCE, 8);
 
 		Integer player0wins = 0;
-		Integer numberOfGames = 100000;
+		Integer numberOfGames = 1;
 		for (int i = 0; i < numberOfGames; i++) {
 			Game game = new GameImpl(gameDeck);
 

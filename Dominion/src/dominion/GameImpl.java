@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import dominion.deck.GameDeck;
 import dominion.exception.BuyException;
 import dominion.exception.CardNotInDeckException;
@@ -15,6 +17,7 @@ import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 
 public class GameImpl implements Game {
+	private static final Logger logger = Logger.getLogger(GameImpl.class);
 	public GameDeck gameDeck;
 	public List<Player> players;
 
@@ -50,6 +53,7 @@ public class GameImpl implements Game {
 		while (!over) {
 			over = gameTurn(numberOfPlayers);
 		}
+		players.forEach(x->{logger.trace(x + " has scored " + x.victoryValue());});
 	}
 
 	private Boolean gameTurn(Integer numberOfPlayers) {
@@ -96,6 +100,7 @@ public class GameImpl implements Game {
 
 	@Override
 	public void playCard(Player player, Card card) {
+		logger.trace(player + " plays " +card.getData());
 		card.play(this, player);
 	}
 }
