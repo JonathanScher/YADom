@@ -49,6 +49,8 @@ public class GameTest {
 		gameDeck = new GameDeck();
 		player0 = new PlayerImpl();
 		player1 = new PlayerImpl();
+		player0.setName("player0");
+		player1.setName("player1");
 		game = new GameImpl(gameDeck);
 		game.register(player0);
 		game.register(player1);
@@ -215,20 +217,26 @@ public class GameTest {
 	public void winnerPlayer0() {
 		// Given
 		player0.pile.add(Estate.INSTANCE);
+		List<Player> expected = new ArrayList<>();
+		expected.add(player0);
+		expected.add(player1);
 		// When
-		Player winner = game.winner();
+		List<Player> winners = game.winner();
 		// Then
-		assertEquals(player0, winner);
+		assertEquals(expected, winners);
 	}
 
 	@Test
 	public void winnerPlayer1() {
 		// Given
 		player1.pile.add(Estate.INSTANCE);
+		List<Player> expected = new ArrayList<>();
+		expected.add(player1);
+		expected.add(player0);
 		// When
-		Player winner = game.winner();
+		List<Player> winners = game.winner();
 		// Then
-		assertEquals(player1, winner);
+		assertEquals(expected, winners);
 	}
 
 	@Test

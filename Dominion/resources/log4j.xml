@@ -4,13 +4,13 @@
 
     <appender name="default.console" class="org.apache.log4j.ConsoleAppender">
         <param name="target" value="System.out" />
-        <param name="threshold" value="TRACE" />
+        <param name="threshold" value="ERROR" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d{ISO8601} %-5p [%c{1}] - %m%n" />
         </layout>
     </appender>
     <root>
-        <priority value="TRACE" />
+        <priority value="ERROR" />
         <appender-ref ref="default.console" />
     </root>
 </log4j:configuration>

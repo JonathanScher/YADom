@@ -69,8 +69,11 @@ public class GameImpl implements Game {
 	}
 
 	@Override
-	public Player winner() {
-		return Collections.max(players);
+	public List<Player> winner() {
+		List<Player> winners = new ArrayList<>();
+		winners.addAll(players);
+		Collections.sort(winners, Collections.reverseOrder());
+		return winners;
 	}
 
 	@Override
