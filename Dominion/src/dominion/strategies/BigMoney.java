@@ -1,5 +1,7 @@
 package dominion.strategies;
 
+import org.apache.log4j.Logger;
+
 import dominion.GameImpl;
 import dominion.card.Gold;
 import dominion.card.Province;
@@ -10,7 +12,7 @@ import dominion.interfaces.Player;
 import dominion.interfaces.Strategy;
 
 public class BigMoney implements Strategy {
-
+	private static final Logger logger = Logger.getLogger(BigMoney.class);
 	@Override
 	public void turn(Player player, Game game) {
 		try {
@@ -22,7 +24,7 @@ public class BigMoney implements Strategy {
 				game.buy(Silver.INSTANCE, player);
 			}
 		} catch (BuyException e) {
-			System.err.println("BigMoney is unable to buy " + e.card.getData()
+			logger.error("BigMoney is unable to buy " + e.card.getData()
 					+ " but an error occured: " + e.getClass()
 					+ ". Number of this card in game deck: "
 					+ ((GameImpl) game).gameDeck.get(e.card)

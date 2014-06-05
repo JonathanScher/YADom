@@ -3,6 +3,8 @@ package dominion;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import dominion.card.Copper;
 import dominion.card.Curse;
 import dominion.card.Duchy;
@@ -18,6 +20,7 @@ import dominion.strategies.BigMoney;
 import dominion.strategies.SmithyBigMoney;
 
 public class Main {
+	public static final Logger logger = Logger.getLogger(Main.class);
 
 	public static void main(String[] args) {
 		Integer player0wins;
@@ -28,9 +31,9 @@ public class Main {
 				.sum();
 
 		long middleTime = System.currentTimeMillis();
-		System.out.println("Parallel execution time: " + (middleTime - startTime)
-				+ "ms");
-		System.out.println("Player 0 wins: " + player0wins);
+		logger.info("Parallel execution time: "
+				+ (middleTime - startTime) + "ms");
+		logger.info("Player 0 wins: " + player0wins);
 	}
 
 	private static List<Game> init() {
