@@ -84,16 +84,16 @@ public class GameImpl implements Game {
 	@Override
 	public void buy(Card card, Player player) throws BuyException {
 		if (gameDeck.get(card) == null) {
-			throw new CardNotInDeckException();
+			throw new CardNotInDeckException(card);
 		}
 		if (gameDeck.get(card) < 1) {
-			throw new PileDepletedException();
+			throw new PileDepletedException(card);
 		}
 		if (player.getGold() < card.getCost()) {
-			throw new NotEnoughGoldException();
+			throw new NotEnoughGoldException(card);
 		}
 		if (player.getBuyLeft() < 1) {
-			throw new NotAllowedToBuyException();
+			throw new NotAllowedToBuyException(card);
 		}
 		player.buy(card);
 		int numberOfCards = gameDeck.get(card);

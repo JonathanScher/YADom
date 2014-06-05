@@ -28,42 +28,28 @@ public class Main {
 				.sum();
 
 		long middleTime = System.currentTimeMillis();
-//		for (Game game : games) {
-//			game.play();
-//			player0wins += player0WinsGame(game);
-//		}
-//		long endTime = System.currentTimeMillis();
 		System.out.println("Parallel execution time: " + (middleTime - startTime)
 				+ "ms");
-//		System.out.println("Total execution time: " + (endTime - middleTime)
-//				+ "ms");
 		System.out.println("Player 0 wins: " + player0wins);
-		// System.out.println("Player 0 wins, in %: "
-		// + (Double.valueOf(player0wins) / Double.valueOf(numberOfGames))
-		// * 100d);
-		// System.out.println("draw: " + draw);
-		// System.out
-		// .println("draw, in %: "
-		// + (Double.valueOf(draw) / Double.valueOf(numberOfGames))
-		// * 100d);
 	}
 
 	private static List<Game> init() {
-		GameDeck gameDeck = new GameDeck();
-		gameDeck.put(Copper.INSTANCE, 100);
-		gameDeck.put(Silver.INSTANCE, 100);
-		gameDeck.put(Gold.INSTANCE, 100);
-		gameDeck.put(Curse.INSTANCE, 10);
-		gameDeck.put(Duchy.INSTANCE, 8);
-		gameDeck.put(Estate.INSTANCE, 8);
-		gameDeck.put(Province.INSTANCE, 8);
-		gameDeck.put(Smithy.INSTANCE, 8);
 
 		Integer numberOfGames = 1000000;
 
 		List<Game> games = new ArrayList<Game>();
 
 		for (int i = 0; i < numberOfGames; i++) {
+			GameDeck gameDeck = new GameDeck();
+			gameDeck.put(Copper.INSTANCE, 100);
+			gameDeck.put(Silver.INSTANCE, 100);
+			gameDeck.put(Gold.INSTANCE, 100);
+			gameDeck.put(Curse.INSTANCE, 10);
+			gameDeck.put(Duchy.INSTANCE, 8);
+			gameDeck.put(Estate.INSTANCE, 8);
+			gameDeck.put(Province.INSTANCE, 8);
+			gameDeck.put(Smithy.INSTANCE, 8);
+
 			Game game = new GameImpl(gameDeck);
 			games.add(game);
 			Player player0 = new PlayerImpl();
