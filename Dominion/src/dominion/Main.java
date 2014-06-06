@@ -20,7 +20,7 @@ import dominion.strategies.BigMoney;
 import dominion.strategies.SmithyBigMoney;
 
 public class Main {
-	public static final Logger logger = Logger.getLogger(Main.class);
+	public static final Logger LOGGER = Logger.getLogger(Main.class);
 
 	public static void main(String[] args) {
 		Integer player0wins;
@@ -31,9 +31,9 @@ public class Main {
 				.sum();
 
 		long middleTime = System.currentTimeMillis();
-		logger.info("Parallel execution time: "
+		LOGGER.info("Parallel execution time: "
 				+ (middleTime - startTime) + "ms");
-		logger.info("Player 0 wins: " + player0wins);
+		LOGGER.info("Player 0 wins: " + player0wins);
 	}
 
 	private static List<Game> init() {

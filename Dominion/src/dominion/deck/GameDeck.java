@@ -21,7 +21,7 @@ public class GameDeck extends HashMap<Card, Integer> {
 		if (numberOfPlayers > 2) {
 			numberOfPilesToBeDepleted = NUMBER_OF_PILES_TO_BE_DEPLETED_MORE_PLAYERS;
 		}
-		return Collections.frequency(values(), new Integer(0)) >= numberOfPilesToBeDepleted;
+		return Collections.frequency(values(), Integer.valueOf(0)) >= numberOfPilesToBeDepleted;
 	}
 
 	private Boolean provincesAreGone() {

@@ -12,19 +12,19 @@ import dominion.interfaces.Player;
 import dominion.interfaces.Strategy;
 
 public class BigMoney implements Strategy {
-	private static final Logger logger = Logger.getLogger(BigMoney.class);
+	private static final Logger LOGGER = Logger.getLogger(BigMoney.class);
 	@Override
 	public void turn(Player player, Game game) {
 		try {
-			if (player.getGold() > 7) {
+			if (player.getGold() >= Province.INSTANCE.getCost()) {
 				game.buy(Province.INSTANCE, player);
-			} else if (player.getGold() > 5) {
+			} else if (player.getGold() >= Gold.INSTANCE.getCost()) {
 				game.buy(Gold.INSTANCE, player);
-			} else if (player.getGold() > 2) {
+			} else if (player.getGold() >= Silver.INSTANCE.getCost()) {
 				game.buy(Silver.INSTANCE, player);
 			}
 		} catch (BuyException e) {
-			logger.error("BigMoney is unable to buy " + e.card.getData()
+			LOGGER.error("BigMoney is unable to buy " + e.card.getData()
 					+ " but an error occured: " + e.getClass()
 					+ ". Number of this card in game deck: "
 					+ ((GameImpl) game).gameDeck.get(e.card)

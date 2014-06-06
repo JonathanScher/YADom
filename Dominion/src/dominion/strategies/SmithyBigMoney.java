@@ -9,7 +9,7 @@ import dominion.interfaces.Player;
 import dominion.interfaces.Strategy;
 
 public class SmithyBigMoney implements Strategy {
-	static final Logger logger = Logger.getLogger(SmithyBigMoney.class);
+	static final Logger LOGGER = Logger.getLogger(SmithyBigMoney.class);
 	
 	public boolean hasOneSmithy = false;
 	public Strategy otherStrat;
@@ -20,20 +20,20 @@ public class SmithyBigMoney implements Strategy {
 	
 	@Override
 	public void turn(Player player, Game game) {
-		logger.info("new turn for Smithy Big Money");
+		LOGGER.trace("new turn for Smithy Big Money");
 		
 		if (player.getHand().contains(Smithy.INSTANCE)) {
 			game.playCard(player, Smithy.INSTANCE);
 		}
 		try {
-			if (!hasOneSmithy && player.getGold() >= 4) {
+			if (!hasOneSmithy && player.getGold() >= Smithy.INSTANCE.getCost()) {
 				game.buy(Smithy.INSTANCE, player);
 				hasOneSmithy = true;
 			} else {
 				otherStrat.turn(player, game);
 			}
 		} catch (BuyException e) {
-			logger.error("buy exception for SmithyBigMoney", e);
+			LOGGER.error("buy exception for SmithyBigMoney", e);
 		}
 	}
 

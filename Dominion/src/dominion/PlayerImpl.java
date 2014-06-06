@@ -14,7 +14,7 @@ import dominion.interfaces.Strategy;
 import dominion.strategies.DoNothing;
 
 public class PlayerImpl implements Player {
-	private static final Logger logger = Logger.getLogger(PlayerImpl.class);
+	private static final Logger LOGGER = Logger.getLogger(PlayerImpl.class);
 	private static final int BUY_PER_TURN = 1;
 	private static final int DRAWING_SIZE = 5;
 	private static final int INITIAL_NUMBER_OF_ESTATES = 3;
@@ -76,7 +76,7 @@ public class PlayerImpl implements Player {
 
 	private void drawFromDrawingPile(int numberOfCards) {
 		for (int i = 0; i < numberOfCards; i++) {
-			logger.trace(name + " draws " + pile.get(0).getData());
+			LOGGER.trace(name + " draws " + pile.get(0).getData());
 			hand.add(pile.get(0));
 			pile.remove(0);
 		}
@@ -95,7 +95,7 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void turn(Game game) {
-		logger.trace("-----------------");
+		LOGGER.trace("-----------------");
 		buyLeft = BUY_PER_TURN;
 		strategy.turn(this, game);
 		discard.addAll(hand);
@@ -131,7 +131,7 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void buy(Card card) {
-		logger.trace(name + " buys " + card.getData());
+		LOGGER.trace(name + " buys " + card.getData());
 		giveCard(card);
 		buyLeft -= 1;
 	}
