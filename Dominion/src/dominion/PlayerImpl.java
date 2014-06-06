@@ -10,7 +10,7 @@ import dominion.deck.PlayerDeck;
 import dominion.interfaces.Card;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
-import dominion.interfaces.Strategy;
+import dominion.interfaces.strategies.Strategy;
 import dominion.strategies.DoNothing;
 
 public class PlayerImpl implements Player {

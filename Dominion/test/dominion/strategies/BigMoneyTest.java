@@ -12,10 +12,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import dominion.card.Gold;
 import dominion.card.Province;
 import dominion.card.Silver;
+import dominion.deck.PlayerDeck;
 import dominion.exception.BuyException;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
-import dominion.interfaces.Strategy;
+import dominion.interfaces.strategies.Strategy;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BigMoneyTest {
@@ -29,6 +30,7 @@ public class BigMoneyTest {
 	@Before
 	public void init() {
 		bigMoney = new BigMoney();
+		when(player.getHand()).thenReturn(new PlayerDeck());
 	}
 
 	@Test

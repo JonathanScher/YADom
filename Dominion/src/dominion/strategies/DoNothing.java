@@ -2,7 +2,7 @@ package dominion.strategies;
 
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
-import dominion.interfaces.Strategy;
+import dominion.interfaces.strategies.Strategy;
 
 public class DoNothing implements Strategy {
 

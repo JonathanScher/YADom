@@ -1,6 +1,7 @@
 package dominion.interfaces;
 
 import dominion.deck.PlayerDeck;
+import dominion.interfaces.strategies.Strategy;
 
 public interface Player extends Comparable<Player> {
 	void initPile();

@@ -16,7 +16,7 @@ import dominion.card.Gold;
 import dominion.card.Silver;
 import dominion.deck.PlayerDeck;
 import dominion.interfaces.Game;
-import dominion.interfaces.Strategy;
+import dominion.interfaces.strategies.Strategy;
 import dominion.mock.PlayerDeckNoShuffle;
 import dominion.strategies.DoNothing;
 

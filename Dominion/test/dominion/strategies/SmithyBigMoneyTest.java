@@ -1,6 +1,5 @@
 package dominion.strategies;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -17,7 +16,6 @@ import dominion.card.Smithy;
 import dominion.exception.BuyException;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
-import dominion.interfaces.Strategy;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SmithyBigMoneyTest {
@@ -69,16 +67,14 @@ public class SmithyBigMoneyTest {
 	}
 
 	@Test
-	public void otherWiseBigMoney() {
+	public void otherWiseBigMoney() throws BuyException {
 		// G
-		Strategy bigMoney = mock(Strategy.class);
-		smithy.otherStrat = bigMoney;
-		smithy.hasOneSmithy = true;
 		player.getHand().add(Gold.INSTANCE, Silver.INSTANCE);
+		smithy.turn(player, game);
 		// W
 		smithy.turn(player, game);
 		// Then
-		verify(bigMoney).turn(player, game);
-
+		verify(game, times(1)).buy(Smithy.INSTANCE, player);
+		verify(game, times(1)).buy(Silver.INSTANCE, player);
 	}
 }
