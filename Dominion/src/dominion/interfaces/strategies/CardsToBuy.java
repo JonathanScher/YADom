@@ -2,14 +2,14 @@ package dominion.interfaces.strategies;
 
 import dominion.interfaces.Card;
 
-public class Couple {
+public class CardsToBuy {
 	public Card card;
 	public Integer numberToBuy;
 	
-	public Couple() {
+	public CardsToBuy() {
 	}
 
-	public Couple(Card card, Integer numberToBuy) {
+	public CardsToBuy(Card card, Integer numberToBuy) {
 		super();
 		this.card = card;
 		this.numberToBuy = numberToBuy;

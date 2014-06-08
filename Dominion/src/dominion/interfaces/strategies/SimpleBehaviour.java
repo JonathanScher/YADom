@@ -1,8 +1,5 @@
 package dominion.interfaces.strategies;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 
 import dominion.card.Smithy;
@@ -10,13 +7,13 @@ import dominion.exception.BuyException;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 
-public abstract class SimpleBehaviour implements Strategy {
+public class SimpleBehaviour implements Strategy {
 	private static final Logger LOGGER = Logger
 			.getLogger(SimpleBehaviour.class);
-	protected List<Couple> buyOrder;
+	public BuyOrder buyOrder;
 
-	protected SimpleBehaviour() {
-		buyOrder = new ArrayList<Couple>();
+	public SimpleBehaviour() {
+		buyOrder = new BuyOrder();
 	}
 
 	@Override
@@ -27,7 +24,7 @@ public abstract class SimpleBehaviour implements Strategy {
 
 	protected void buy(Player player, Game game) {
 		Integer gold = player.getGold();
-		for (Couple couple : buyOrder) {
+		for (CardsToBuy couple : buyOrder) {
 			if (couple.numberToBuy > 0 && couple.card.getCost() <= gold) {
 				try {
 					game.buy(couple.card, player);

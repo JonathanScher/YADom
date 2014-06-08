@@ -12,7 +12,6 @@ public class GameDeck extends HashMap<Card, Integer> {
 	private static final long serialVersionUID = 7699189497179269801L;
 
 	public Boolean gameOver(Integer numberOfPlayers) {
-		// TODO might want to add a condition on time or number of turns
 		return provincesAreGone() || tooManyPilesEmptied(numberOfPlayers);
 	}
 

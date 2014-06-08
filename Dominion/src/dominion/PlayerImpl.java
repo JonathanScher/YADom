@@ -123,6 +123,10 @@ public class PlayerImpl implements Player {
 	public void setName(String name) {
 		this.name = name;
 	}
+	@Override
+	public String getName() {
+		return name;
+	}
 
 	@Override
 	public String toString() {
@@ -153,6 +157,11 @@ public class PlayerImpl implements Player {
 		} else {
 			drawFromDrawingPile(numberOfCards);
 		}
+	}
+
+	@Override
+	public Strategy getStrategy() {
+		return strategy;
 	}
 
 }
