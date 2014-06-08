@@ -58,6 +58,16 @@ public class GameTest {
 	}
 
 	@Test
+	public void gameLastFor80Turns(){
+		//G
+		((GameImpl)game).turn = 81;
+		//W
+		Boolean actual = ((GameImpl)game).gameOver();
+		//T
+		assertTrue(actual);
+	}
+	
+	@Test
 	public void playCard() {
 		// G
 		Card card = mock(Smithy.class);

@@ -17,9 +17,11 @@ import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 
 public class GameImpl implements Game {
+	private static final int MAX_GAME_TURNS = 80;
 	private static final Logger LOGGER = Logger.getLogger(GameImpl.class);
 	public GameDeck gameDeck;
 	public List<Player> players;
+	public int turn;
 
 	public GameImpl(GameDeck gameDeck) {
 		this.gameDeck = gameDeck;
@@ -50,24 +52,31 @@ public class GameImpl implements Game {
 	public void play() {
 		Integer numberOfPlayers = players.size();
 		Boolean over = gameDeck.gameOver(numberOfPlayers);
+		Integer playerTurn = 0;
 		while (!over) {
-			over = gameTurn(numberOfPlayers);
+			play(playerTurn);
+			playerTurn = incrementPlayerTurn(playerTurn);
+			over = gameOver();
 		}
-		players.forEach(x->{LOGGER.trace(x + " has scored " + x.victoryValue());});
+		players.forEach(x -> {
+			LOGGER.trace(x + " has scored " + x.victoryValue());
+		});
 	}
 
-	private Boolean gameTurn(Integer numberOfPlayers) {
-		// having a return in a middle of a loop kills me. I don't know why, and
-		// I don't know how to simply get rid of it
-		for (Player player : players) {
-			player.turn(this);
-			if (gameDeck.gameOver(numberOfPlayers)) {
-				return true;
-			}
-		}
-		return false;
+	private void play(Integer playerTurn) {
+		Player player = players.get(playerTurn);
+		player.turn(this);
 	}
 
+	private Integer incrementPlayerTurn(Integer playerTurn) {
+		Integer next = playerTurn;
+		next ++;
+		if(next >= players.size()) {
+			next = 0;
+		}
+		return next;
+	}
+	
 	@Override
 	public List<Player> winner() {
 		List<Player> winners = new ArrayList<>();
@@ -78,7 +87,7 @@ public class GameImpl implements Game {
 
 	@Override
 	public Boolean gameOver() {
-		return gameDeck.gameOver(players.size());
+		return turn > MAX_GAME_TURNS || gameDeck.gameOver(players.size());
 	}
 
 	@Override
@@ -103,7 +112,7 @@ public class GameImpl implements Game {
 
 	@Override
 	public void playCard(Player player, Card card) {
-		LOGGER.trace(player + " plays " +card.getData());
+		LOGGER.trace(player + " plays " + card.getData());
 		card.play(this, player);
 	}
 }
