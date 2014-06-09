@@ -35,19 +35,6 @@ public class Match {
 		player1wins = 0;
 		player2wins = 0;
 	}
-
-	public void run(){
-		LOGGER.debug("run Start");
-		init();
-		LOGGER.debug("init done");
-		initGames();
-		LOGGER.debug("initGame done");
-		playGames();
-		LOGGER.debug("playGame done");
-		gatherResult();
-		LOGGER.debug("gatherResult done");
-		
-	}
 	
 	public void init() {
 		for (int i = 0; i < numberOfGames; i++) {

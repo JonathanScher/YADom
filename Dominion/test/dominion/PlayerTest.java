@@ -44,11 +44,6 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void toStringPrintsName() {
-		assertEquals("test", player.toString());
-	}
-
-	@Test
 	public void getGoldReturnsGoldInHand() {
 		// G
 		PlayerDeck hand = new PlayerDeck();

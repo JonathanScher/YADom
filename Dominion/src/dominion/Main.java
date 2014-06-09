@@ -18,39 +18,33 @@ import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 import dominion.strategies.BigMoney;
 import dominion.strategies.Match;
+import dominion.strategies.MatchService;
 import dominion.strategies.SmithyBigMoney;
 
 public class Main {
 	public static final Logger LOGGER = Logger.getLogger(Main.class);
 
-	
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
 		match();
 		long endTime = System.currentTimeMillis();
-		LOGGER.info("Execution time: "
-				+ (endTime - startTime) + "ms");
+		LOGGER.info("Execution time: " + (endTime - startTime) + "ms");
 	}
 
-	private static void match(){
+	private static void match() {
 		BigMoney bm = new BigMoney();
 		SmithyBigMoney sbm = new SmithyBigMoney();
-		GameDeck gameDeck = new GameDeck();
-		gameDeck.put(Copper.INSTANCE, 100);
-		gameDeck.put(Silver.INSTANCE, 100);
-		gameDeck.put(Gold.INSTANCE, 100);
-		gameDeck.put(Curse.INSTANCE, 10);
-		gameDeck.put(Duchy.INSTANCE, 8);
-		gameDeck.put(Estate.INSTANCE, 8);
-		gameDeck.put(Province.INSTANCE, 8);
+		GameDeck gameDeck = GameDeck.basicDeck2Players();
 		gameDeck.put(Smithy.INSTANCE, 8);
-		
+
 		Match match = new Match(gameDeck, bm.buyOrder, sbm.buyOrder);
-		match.run();
-		LOGGER.info("player 1 wins: "+match.player1wins);
-		LOGGER.info("player 2 wins: "+match.player2wins);
+		MatchService ms = new MatchService(match);
+		ms.run();
+		LOGGER.info("player 1 wins: " + match.player1wins);
+		LOGGER.info("player 2 wins: " + match.player2wins);
 	}
-	
+
+	@SuppressWarnings("unused")
 	private static void simpleGame() {
 		Integer player0wins;
 		List<Game> games = init();
@@ -60,8 +54,8 @@ public class Main {
 				.sum();
 
 		long middleTime = System.currentTimeMillis();
-		LOGGER.info("Parallel execution time: "
-				+ (middleTime - startTime) + "ms");
+		LOGGER.info("Parallel execution time: " + (middleTime - startTime)
+				+ "ms");
 		LOGGER.info("Player 0 wins: " + player0wins);
 	}
 
