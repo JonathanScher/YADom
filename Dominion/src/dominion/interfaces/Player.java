@@ -28,4 +28,8 @@ public interface Player extends Comparable<Player> {
 	int getBuyLeft();
 
 	PlayerDeck getHand();
+
+	PlayerDeck getDiscard();
+
+	PlayerDeck getPile();
 }

@@ -8,8 +8,11 @@ public class DoNothing implements Strategy {
 
 	@Override
 	public void turn(Player player, Game game) {
-		// TODO Auto-generated method stub
-		
+	}
+
+	@Override
+	public Strategy copy() {
+		return new DoNothing();
 	}
 
 }

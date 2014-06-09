@@ -1,5 +1,8 @@
 package dominion.interfaces.strategies;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
 import dominion.card.Smithy;
@@ -8,12 +11,15 @@ import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 
 public class SimpleBehaviour implements Strategy {
-	public static Logger logger = Logger
-			.getLogger(SimpleBehaviour.class);
+	public static Logger logger = Logger.getLogger(SimpleBehaviour.class);
 	public BuyOrder buyOrder;
 
 	public SimpleBehaviour() {
 		buyOrder = new BuyOrder();
+	}
+
+	public SimpleBehaviour(BuyOrder buyOrder) {
+		this.buyOrder = buyOrder;
 	}
 
 	@Override
@@ -42,4 +48,27 @@ public class SimpleBehaviour implements Strategy {
 			game.playCard(player, Smithy.INSTANCE);
 		}
 	}
+
+	@Override
+	public Strategy copy() {
+		SimpleBehaviour strategy = new SimpleBehaviour();
+		strategy.buyOrder = new BuyOrder(buyOrder);
+		return strategy;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+
+	@Override
+	public String toString(){
+		return ToStringBuilder.reflectionToString(this);
+	}
+
 }

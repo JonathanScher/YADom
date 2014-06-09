@@ -2,6 +2,7 @@ package dominion;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
 import dominion.card.Copper;
@@ -27,12 +28,44 @@ public class PlayerImpl implements Player {
 
 	public Integer buyLeft;
 
+	@Override
+	public int hashCode() {
+		if(strategy==null) {
+			return 0;
+		} else {
+			return strategy.hashCode();
+		}
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		try{
+			PlayerImpl otherPlayer = (PlayerImpl)other;
+			return (strategy==null && otherPlayer==null) || strategy.equals(otherPlayer.strategy);
+		} catch(ClassCastException e) {
+			return false;
+		}
+	}
+
 	public PlayerImpl() {
 		strategy = new DoNothing();
 		hand = new PlayerDeck();
 		discard = new PlayerDeck();
 		pile = new PlayerDeck();
 		buyLeft = 1;
+	}
+
+	public PlayerImpl(Player origin) {
+		strategy = origin.getStrategy().copy();
+		hand = new PlayerDeck(origin.getHand());
+		discard = new PlayerDeck(origin.getDiscard());
+		pile = new PlayerDeck(origin.getPile());
+		buyLeft = origin.getBuyLeft();
+	}
+
+	public PlayerImpl(Strategy simpleBehaviour) {
+		this();
+		strategy = simpleBehaviour;
 	}
 
 	@Override
@@ -147,6 +180,21 @@ public class PlayerImpl implements Player {
 	@Override
 	public Strategy getStrategy() {
 		return strategy;
+	}
+
+	@Override
+	public PlayerDeck getDiscard() {
+		return discard;
+	}
+
+	@Override
+	public PlayerDeck getPile() {
+		return pile;
+	}
+	
+	@Override
+	public String toString(){
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

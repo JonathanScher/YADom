@@ -10,6 +10,13 @@ public class PlayerDeck extends ArrayList<Card> {
 	private static final long serialVersionUID = -8374173682996740658L;
 	public Integer shuffled = 0;
 
+	public PlayerDeck(){
+	}
+	
+	public PlayerDeck(PlayerDeck hand) {
+		this.addAll(hand);
+	}
+
 	public void shuffle() {
 		Collections.shuffle(this);
 		shuffled++;

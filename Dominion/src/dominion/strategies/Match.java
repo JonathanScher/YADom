@@ -6,10 +6,12 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import dominion.GameImpl;
+import dominion.PlayerImpl;
 import dominion.deck.GameDeck;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 import dominion.interfaces.strategies.BuyOrder;
+import dominion.interfaces.strategies.SimpleBehaviour;
 
 /**
  * Match plays 100 games with two given strategies
@@ -17,25 +19,26 @@ import dominion.interfaces.strategies.BuyOrder;
 public class Match {
 
 	public static final Logger LOGGER = Logger.getLogger(Match.class);
-	
+
 	public static final int NUMBER_OF_GAMES = 1;
 	public int numberOfGames = NUMBER_OF_GAMES;
 	public List<Game> games;
-	public BuyOrder player1BO;
-	public BuyOrder player2BO;
+	public Player player1;
+	public Player player2;
 	public GameDeck gameDeck;
 	public Integer player1wins;
 	public Integer player2wins;
 
 	public Match(GameDeck deck, BuyOrder player1bo, BuyOrder player2bo) {
 		games = new ArrayList<Game>();
-		this.player1BO = player1bo;
-		this.player2BO = player2bo;
+		player1 = new PlayerImpl(new SimpleBehaviour(player1bo));
+		player2 = new PlayerImpl(new SimpleBehaviour(player2bo));
+
 		this.gameDeck = deck;
 		player1wins = 0;
 		player2wins = 0;
 	}
-	
+
 	public void init() {
 		for (int i = 0; i < numberOfGames; i++) {
 			Game game = new GameImpl((GameDeck) gameDeck.clone());
@@ -45,8 +48,8 @@ public class Match {
 
 	public void initGames() {
 		games.parallelStream().forEach(x -> {
-			x.register(new BuyOrder(player1BO));
-			x.register(new BuyOrder(player2BO));
+			x.register(new PlayerImpl(player1));
+			x.register(new PlayerImpl(player2));
 		});
 	}
 

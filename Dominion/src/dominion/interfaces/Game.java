@@ -4,12 +4,9 @@ import java.util.List;
 
 import dominion.deck.GameDeck;
 import dominion.exception.BuyException;
-import dominion.interfaces.strategies.BuyOrder;
 
 public interface Game {
 	void register(Player player);
-
-	void register(BuyOrder buyOrder);
 
 	List<Integer> getNumberOfCards();
 

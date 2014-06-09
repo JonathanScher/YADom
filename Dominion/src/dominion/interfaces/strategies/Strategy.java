@@ -6,4 +6,6 @@ import dominion.interfaces.Player;
 
 public interface Strategy {
 	void turn(Player player, Game game);
+
+	Strategy copy();
 }

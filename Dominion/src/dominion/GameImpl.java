@@ -15,8 +15,6 @@ import dominion.exception.PileDepletedException;
 import dominion.interfaces.Card;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
-import dominion.interfaces.strategies.BuyOrder;
-import dominion.interfaces.strategies.SimpleBehaviour;
 
 public class GameImpl implements Game {
 	private static final int MAX_GAME_TURNS = 80;
@@ -116,16 +114,6 @@ public class GameImpl implements Game {
 	public void playCard(Player player, Card card) {
 		LOGGER.trace(player + " plays " + card.getData());
 		card.play(this, player);
-	}
-
-	//NOT TESTED!!!!
-	@Override
-	public void register(BuyOrder buyOrder) {
-		Player player = new PlayerImpl();
-		SimpleBehaviour sb = new SimpleBehaviour();
-		sb.buyOrder = buyOrder;
-		player.setStrategy(sb);
-		register(player);
 	}
 
 	@Override

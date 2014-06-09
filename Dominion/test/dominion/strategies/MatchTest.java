@@ -1,22 +1,21 @@
 package dominion.strategies;
 
 import static org.junit.Assert.assertEquals;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.times;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
+import dominion.GameImpl;
 import dominion.PlayerImpl;
 import dominion.card.Copper;
+import dominion.card.Silver;
 import dominion.deck.GameDeck;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
@@ -60,16 +59,24 @@ public class MatchTest {
 	public void constructor() {
 		// G
 		BuyOrder player1BO = new BuyOrder();
+		player1BO.add(new CardsToBuy(Copper.INSTANCE, 8));
 		BuyOrder player2BO = new BuyOrder();
+		player2BO.add(new CardsToBuy(Silver.INSTANCE, 8));
 		GameDeck deck = new GameDeck();
 
 		// W
 		Match match = new Match(deck, player1BO, player2BO);
 
 		// T
+		Player player1 = match.player1;
+		Player player2 = match.player2;
+		SimpleBehaviour sb1 = (SimpleBehaviour) player1.getStrategy();
+		SimpleBehaviour sb2 = (SimpleBehaviour) player2.getStrategy();
+		BuyOrder bo1 = sb1.buyOrder;
+		BuyOrder bo2 = sb2.buyOrder;
 		assertNotNull(match.games);
-		assertEquals(player1BO, match.player1BO);
-		assertEquals(player2BO, match.player2BO);
+		assertEquals(player1BO, bo1);
+		assertEquals(player2BO, bo2);
 		assertEquals(deck, match.gameDeck);
 	}
 
@@ -96,12 +103,14 @@ public class MatchTest {
 	@Test
 	public void initGames() {
 		// G
-		BuyOrder player1BO = mock(BuyOrder.class);
-		BuyOrder player2BO = mock(BuyOrder.class);
-
+		BuyOrder player1BO = new BuyOrder();
+		player1BO.add(Copper.INSTANCE, 8);
+		BuyOrder player2BO = new BuyOrder();
+		player2BO.add(Silver.INSTANCE, 8);
+		
 		GameDeck gameDeck = new GameDeck();
-		Game game1 = mock(Game.class);
-		Game game2 = mock(Game.class);
+		Game game1 = new GameImpl(gameDeck);
+		Game game2 = new GameImpl(gameDeck);
 
 		Match match = new Match(gameDeck, player1BO, player2BO);
 		match.games.add(game1);
@@ -111,14 +120,14 @@ public class MatchTest {
 		match.initGames();
 
 		// T
-		verify(game1, times(2)).register(any(BuyOrder.class));
-		verify(game2, times(2)).register(any(BuyOrder.class));
-		verify(game1, times(0)).register(player2BO);
-		verify(game1, times(0)).register(player1BO);
-		verify(game2, times(0)).register(player1BO);
-		verify(game2, times(0)).register(player2BO);
+		Player player1 = new PlayerImpl(new SimpleBehaviour(player1BO));
+		Player player2 = new PlayerImpl(new SimpleBehaviour(player2BO));
+		assertEquals(player1, match.getPlayer(0, 0));
+		assertEquals(player1, match.getPlayer(1, 0));
+		assertEquals(player2, match.getPlayer(0, 1));
+		assertEquals(player2, match.getPlayer(1, 1));
 	}
-
+	
 	@Test
 	public void playGames() {
 		// G

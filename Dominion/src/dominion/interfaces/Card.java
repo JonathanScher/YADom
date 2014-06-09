@@ -1,5 +1,8 @@
 package dominion.interfaces;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import dominion.card.data.CardData;
 
 public abstract class Card {
@@ -22,5 +25,15 @@ public abstract class Card {
 	}
 
 	public void play(Game game, Player player) {
+	}
+
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		return EqualsBuilder.reflectionEquals(this, other);
 	}
 }
