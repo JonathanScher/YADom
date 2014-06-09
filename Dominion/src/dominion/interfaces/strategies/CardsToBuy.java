@@ -9,9 +9,6 @@ public class CardsToBuy {
 	public Card card;
 	public Integer numberToBuy;
 
-	public CardsToBuy() {
-	}
-
 	public CardsToBuy(Card card, Integer numberToBuy) {
 		super();
 		this.card = card;

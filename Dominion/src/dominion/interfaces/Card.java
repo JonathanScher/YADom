@@ -4,7 +4,7 @@ import dominion.card.data.CardData;
 
 public abstract class Card {
 	protected CardData data;
-	
+
 	public CardData getData() {
 		return data;
 	}
@@ -21,5 +21,6 @@ public abstract class Card {
 		return data.goldValue;
 	}
 
-	public abstract void play(Game game, Player player);
+	public void play(Game game, Player player) {
+	}
 }

@@ -2,8 +2,6 @@ package dominion.card;
 
 import dominion.card.data.CardData;
 import dominion.interfaces.Card;
-import dominion.interfaces.Game;
-import dominion.interfaces.Player;
 
 public class Curse extends Card {
 	public static final Card INSTANCE = new Curse();
@@ -11,9 +9,4 @@ public class Curse extends Card {
 	private Curse() {
 		data = CardData.CURSE;
 	};
-
-	@Override
-	public void play(Game game, Player player) {
-	}
-
 }

@@ -2,8 +2,6 @@ package dominion.card;
 
 import dominion.card.data.CardData;
 import dominion.interfaces.Card;
-import dominion.interfaces.Game;
-import dominion.interfaces.Player;
 
 public class Estate extends Card {
 	public static final Card INSTANCE = new Estate();
@@ -11,9 +9,4 @@ public class Estate extends Card {
 	private Estate() {
 		data = CardData.ESTATE;
 	};
-
-	@Override
-	public void play(Game game, Player player) {
-	}
-
 }
