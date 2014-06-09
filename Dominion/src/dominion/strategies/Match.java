@@ -45,8 +45,8 @@ public class Match {
 
 	public void initGames() {
 		games.parallelStream().forEach(x -> {
-			x.register((BuyOrder) player1BO.clone());
-			x.register((BuyOrder) player2BO.clone());
+			x.register(new BuyOrder(player1BO));
+			x.register(new BuyOrder(player2BO));
 		});
 	}
 

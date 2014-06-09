@@ -23,7 +23,7 @@ public class SimpleBehaviourTest {
 		BuyOrder buyOrder = new BuyOrder();
 		buyOrder.add(new CardsToBuy(Copper.INSTANCE, 1));
 		sb.buyOrder = buyOrder;
-		sb.LOGGER = mock(Logger.class);
+		sb.logger = mock(Logger.class);
 		
 		Player player = new PlayerImpl();
 		player.setStrategy(sb);
@@ -37,7 +37,7 @@ public class SimpleBehaviourTest {
 		sb.buy(player, game);
 		
 		//T
-		verify(sb.LOGGER).error(new PileDepletedException(Copper.INSTANCE));
+		verify(sb.logger).error(new PileDepletedException(Copper.INSTANCE));
 	}
 
 }

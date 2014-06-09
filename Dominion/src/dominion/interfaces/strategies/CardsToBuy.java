@@ -15,9 +15,9 @@ public class CardsToBuy {
 		this.numberToBuy = numberToBuy;
 	}
 
-	@Override
-	public Object clone() {
-		return new CardsToBuy(card, numberToBuy);
+	public CardsToBuy(CardsToBuy origin) {
+		this.card = origin.card;
+		this.numberToBuy = origin.numberToBuy;
 	}
 
 	@Override
@@ -29,5 +29,4 @@ public class CardsToBuy {
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
 	}
-
 }

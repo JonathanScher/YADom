@@ -8,7 +8,7 @@ import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 
 public class SimpleBehaviour implements Strategy {
-	public Logger LOGGER = Logger
+	public static Logger logger = Logger
 			.getLogger(SimpleBehaviour.class);
 	public BuyOrder buyOrder;
 
@@ -31,7 +31,7 @@ public class SimpleBehaviour implements Strategy {
 					couple.numberToBuy--;
 					break;
 				} catch (BuyException e) {
-					LOGGER.error(e);
+					logger.error(e);
 				}
 			}
 		}

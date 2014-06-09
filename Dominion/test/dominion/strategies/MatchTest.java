@@ -1,11 +1,14 @@
 package dominion.strategies;
 
 import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.times;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,12 +97,7 @@ public class MatchTest {
 	public void initGames() {
 		// G
 		BuyOrder player1BO = mock(BuyOrder.class);
-		BuyOrder player1BOClone = mock(BuyOrder.class);
-		when(player1BO.clone()).thenReturn(player1BOClone);
-
 		BuyOrder player2BO = mock(BuyOrder.class);
-		BuyOrder player2BOClone = mock(BuyOrder.class);
-		when(player2BO.clone()).thenReturn(player2BOClone);
 
 		GameDeck gameDeck = new GameDeck();
 		Game game1 = mock(Game.class);
@@ -113,10 +111,12 @@ public class MatchTest {
 		match.initGames();
 
 		// T
-		verify(game1).register(player1BOClone);
-		verify(game1).register(player2BOClone);
-		verify(game2).register(player1BOClone);
-		verify(game2).register(player2BOClone);
+		verify(game1, times(2)).register(any(BuyOrder.class));
+		verify(game2, times(2)).register(any(BuyOrder.class));
+		verify(game1, times(0)).register(player2BO);
+		verify(game1, times(0)).register(player1BO);
+		verify(game2, times(0)).register(player1BO);
+		verify(game2, times(0)).register(player2BO);
 	}
 
 	@Test
