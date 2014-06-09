@@ -13,19 +13,24 @@ import dominion.card.Silver;
 import dominion.interfaces.Card;
 
 public class GameDeck extends HashMap<Card, Integer> {
+	private static final int NUMBER_OF_CURSES_2_PLAYERS = 10;
+	private static final int NUMBER_OF_COPPERS = 60;
+	private static final int NUMBER_OF_SILVER_CARDS = 40;
+	private static final int NUMBER_OF_GOLD_CARDS = 30;
+	private static final int NUMBER_OF_VICTORY_CARDS_2_PLAYERS = 8;
 	private static final int NUMBER_OF_PILES_TO_BE_DEPLETED_2_PLAYERS = 2;
 	private static final int NUMBER_OF_PILES_TO_BE_DEPLETED_MORE_PLAYERS = 3;
 	private static final long serialVersionUID = 7699189497179269801L;
 
 	public static GameDeck basicDeck2Players(){
 		GameDeck gameDeck = new GameDeck();
-		gameDeck.put(Province.INSTANCE, 8);
-		gameDeck.put(Duchy.INSTANCE, 8);
-		gameDeck.put(Estate.INSTANCE, 8);
-		gameDeck.put(Gold.INSTANCE, 30);
-		gameDeck.put(Silver.INSTANCE, 40);
-		gameDeck.put(Copper.INSTANCE, 60);
-		gameDeck.put(Curse.INSTANCE, 10);
+		gameDeck.put(Province.INSTANCE, NUMBER_OF_VICTORY_CARDS_2_PLAYERS);
+		gameDeck.put(Duchy.INSTANCE, NUMBER_OF_VICTORY_CARDS_2_PLAYERS);
+		gameDeck.put(Estate.INSTANCE, NUMBER_OF_VICTORY_CARDS_2_PLAYERS);
+		gameDeck.put(Gold.INSTANCE, NUMBER_OF_GOLD_CARDS);
+		gameDeck.put(Silver.INSTANCE, NUMBER_OF_SILVER_CARDS);
+		gameDeck.put(Copper.INSTANCE, NUMBER_OF_COPPERS);
+		gameDeck.put(Curse.INSTANCE, NUMBER_OF_CURSES_2_PLAYERS);
 		return gameDeck;
 	}
 	
