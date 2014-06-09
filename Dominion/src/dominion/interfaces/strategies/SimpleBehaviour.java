@@ -14,7 +14,7 @@ public class SimpleBehaviour implements Strategy {
 	public static Logger logger = Logger.getLogger(SimpleBehaviour.class);
 	public BuyOrder buyOrder;
 
-	public SimpleBehaviour() {
+	protected SimpleBehaviour() {
 		buyOrder = new BuyOrder();
 	}
 

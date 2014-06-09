@@ -21,6 +21,7 @@ public class BigMoney extends SimpleBehaviour {
 	}
 	
 	public BigMoney() {
+		super();
 		initBigMoney(buyOrder);
 	}
 }

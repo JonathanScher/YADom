@@ -1,6 +1,6 @@
 package dominion;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -35,6 +35,39 @@ public class PlayerTest {
 		player.pile = pile;
 	}
 
+	@Test
+	public void equalsWithAWrongObject() {
+		assertFalse(player.equals(Copper.INSTANCE));
+	}
+
+	@Test
+	public void equalsWithNoStrategy() {
+		PlayerImpl player2 = new PlayerImpl();
+		player.strategy = null;
+		player2.strategy = null;
+		assertTrue(player.equals(player2));
+	}
+
+	@Test
+	public void equalsWithOneStrategy() {
+		PlayerImpl player2 = new PlayerImpl();
+		player2.strategy = null;
+		assertFalse(player.equals(player2));
+	}
+
+	@Test
+	public void equalsWithOtherOneStrategy() {
+		PlayerImpl player2 = new PlayerImpl();
+		player.strategy = null;
+		assertFalse(player.equals(player2));
+	}
+
+	@Test
+	public void hashCodeTest(){
+		player.strategy = null;
+		assertEquals(0, player.hashCode());
+	}
+	
 	@Test
 	public void draw() {
 		PlayerDeck expected = new PlayerDeck();

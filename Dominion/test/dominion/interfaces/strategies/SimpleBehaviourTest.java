@@ -19,11 +19,11 @@ public class SimpleBehaviourTest {
 	@Test
 	public void SimpleBehaviourWhenCantBuy() {
 		//G
-		SimpleBehaviour sb = new SimpleBehaviour();
 		BuyOrder buyOrder = new BuyOrder();
 		buyOrder.add(new CardsToBuy(Copper.INSTANCE, 1));
+		SimpleBehaviour sb = new SimpleBehaviour(buyOrder);
 		sb.buyOrder = buyOrder;
-		sb.logger = mock(Logger.class);
+		SimpleBehaviour.logger = mock(Logger.class);
 		
 		Player player = new PlayerImpl();
 		player.setStrategy(sb);
@@ -37,7 +37,7 @@ public class SimpleBehaviourTest {
 		sb.buy(player, game);
 		
 		//T
-		verify(sb.logger).error(new PileDepletedException(Copper.INSTANCE));
+		verify(SimpleBehaviour.logger).error(new PileDepletedException(Copper.INSTANCE));
 	}
 
 }

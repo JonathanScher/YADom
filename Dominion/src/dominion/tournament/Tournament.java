@@ -49,14 +49,12 @@ public class Tournament {
 			Game game = new GameImpl((GameDeck) gameDeck.clone());
 
 			Player player1 = new PlayerImpl();
-			SimpleBehaviour sb1 = new SimpleBehaviour();
-			sb1.buyOrder = strat1;
+			SimpleBehaviour sb1 = new SimpleBehaviour(strat1);
 			player1.setStrategy(sb1);
 			game.register(player1);
 
 			Player player2 = new PlayerImpl();
-			SimpleBehaviour sb2 = new SimpleBehaviour();
-			sb2.buyOrder = strat2;
+			SimpleBehaviour sb2 = new SimpleBehaviour(strat2);
 			player2.setStrategy(sb2);
 			game.register(player2);
 

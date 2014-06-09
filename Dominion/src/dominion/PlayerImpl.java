@@ -30,7 +30,7 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public int hashCode() {
-		if(strategy==null) {
+		if (strategy == null) {
 			return 0;
 		} else {
 			return strategy.hashCode();
@@ -39,10 +39,12 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public boolean equals(Object other) {
-		try{
-			PlayerImpl otherPlayer = (PlayerImpl)other;
-			return (strategy==null && otherPlayer==null) || strategy.equals(otherPlayer.strategy);
-		} catch(ClassCastException e) {
+		try {
+			PlayerImpl otherPlayer = (PlayerImpl) other;
+			return (strategy == null && otherPlayer.strategy == null)
+					|| (strategy != null && otherPlayer.strategy != null && strategy
+							.equals(otherPlayer.strategy));
+		} catch (ClassCastException e) {
 			return false;
 		}
 	}
@@ -191,9 +193,9 @@ public class PlayerImpl implements Player {
 	public PlayerDeck getPile() {
 		return pile;
 	}
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
 
