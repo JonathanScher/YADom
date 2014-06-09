@@ -49,8 +49,6 @@ public class GameTest {
 		gameDeck = new GameDeck();
 		player0 = new PlayerImpl();
 		player1 = new PlayerImpl();
-		player0.setName("player0");
-		player1.setName("player1");
 		game = new GameImpl(gameDeck);
 		game.register(player0);
 		game.register(player1);

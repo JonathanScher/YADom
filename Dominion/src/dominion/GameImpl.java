@@ -122,7 +122,6 @@ public class GameImpl implements Game {
 	@Override
 	public void register(BuyOrder buyOrder) {
 		Player player = new PlayerImpl();
-		player.setName(buyOrder.name);
 		SimpleBehaviour sb = new SimpleBehaviour();
 		sb.buyOrder = buyOrder;
 		player.setStrategy(sb);

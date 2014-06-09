@@ -45,7 +45,6 @@ public class PlayerTest {
 
 	@Test
 	public void toStringPrintsName() {
-		player.setName("test");
 		assertEquals("test", player.toString());
 	}
 

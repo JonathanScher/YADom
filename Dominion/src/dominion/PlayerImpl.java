@@ -24,7 +24,6 @@ public class PlayerImpl implements Player {
 	public PlayerDeck pile;
 	public PlayerDeck discard;
 	public Strategy strategy;
-	private String name;
 
 	public Integer buyLeft;
 
@@ -76,7 +75,7 @@ public class PlayerImpl implements Player {
 
 	private void drawFromDrawingPile(int numberOfCards) {
 		for (int i = 0; i < numberOfCards; i++) {
-			LOGGER.trace(name + " draws " + pile.get(0).getData());
+			LOGGER.trace("Player draws " + pile.get(0).getData());
 			hand.add(pile.get(0));
 			pile.remove(0);
 		}
@@ -120,22 +119,8 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	public void setName(String name) {
-		this.name = name;
-	}
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public String toString() {
-		return this.name;
-	}
-
-	@Override
 	public void buy(Card card) {
-		LOGGER.trace(name + " buys " + card.getData());
+		LOGGER.trace("Player buys " + card.getData());
 		giveCard(card);
 		buyLeft -= 1;
 	}

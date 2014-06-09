@@ -1,15 +1,17 @@
 package dominion.strategies;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import dominion.GameImpl;
-import dominion.PlayerImpl;
 import dominion.deck.GameDeck;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
@@ -46,9 +48,11 @@ public class MatchTest {
 		match.init();
 
 		// T
-		assertEquals(100, match.games.size());
-		assertFalse(match.games.get(0).getGameDeck() == match.games.get(1)
-				.getGameDeck());
+		assertEquals(Match.NUMBER_OF_GAMES, match.games.size());
+		if (Match.NUMBER_OF_GAMES > 1) {
+			assertFalse(match.games.get(0).getGameDeck() == match.games.get(1)
+					.getGameDeck());
+		}
 		assertEquals("player1", player1BO.name);
 		assertEquals("player2", player2BO.name);
 	}
@@ -119,15 +123,13 @@ public class MatchTest {
 		players.add(player2);
 		when(game1.winner()).thenReturn(players);
 
-		when(player1.getName()).thenReturn(Match.PLAYER1);
-		when(player2.getName()).thenReturn(Match.PLAYER2);
 		when(player1.victoryValue()).thenReturn(1);
 		when(player2.victoryValue()).thenReturn(0);
 
 		// W
 		match.gatherResult();
-		
-		//T
+
+		// T
 		assertEquals(Integer.valueOf(1), match.player1wins);
 		assertEquals(Integer.valueOf(0), match.player2wins);
 	}

@@ -15,4 +15,8 @@ public class CardsToBuy {
 		this.numberToBuy = numberToBuy;
 	}
 
+	@Override
+	public Object clone(){
+		return new CardsToBuy(card, numberToBuy);
+	}
 }

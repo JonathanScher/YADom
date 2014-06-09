@@ -18,9 +18,7 @@ public class Match {
 
 	public static final Logger LOGGER = Logger.getLogger(Match.class);
 	
-	private static final int NUMBER_OF_GAMES = 100;
-	public static final String PLAYER2 = "player2";
-	public static final String PLAYER1 = "player1";
+	public static final int NUMBER_OF_GAMES = 1;
 	public List<Game> games;
 	public BuyOrder player1BO;
 	public BuyOrder player2BO;
@@ -31,9 +29,7 @@ public class Match {
 	public Match(GameDeck deck, BuyOrder player1bo, BuyOrder player2bo) {
 		games = new ArrayList<Game>();
 		this.player1BO = player1bo;
-		player1bo.name = PLAYER1;
 		this.player2BO = player2bo;
-		player2bo.name = PLAYER2;
 		this.gameDeck = deck;
 		player1wins = 0;
 		player2wins = 0;

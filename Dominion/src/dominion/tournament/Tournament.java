@@ -12,7 +12,6 @@ import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 import dominion.interfaces.strategies.BuyOrder;
 import dominion.interfaces.strategies.SimpleBehaviour;
-import dominion.interfaces.strategies.Strategy;
 
 public class Tournament {
 

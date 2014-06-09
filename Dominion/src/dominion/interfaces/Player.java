@@ -23,13 +23,9 @@ public interface Player extends Comparable<Player> {
 
 	void giveCard(Card card);
 
-	void setName(String string);
-
 	void buy(Card card);
 
 	int getBuyLeft();
 
 	PlayerDeck getHand();
-
-	String getName();
 }

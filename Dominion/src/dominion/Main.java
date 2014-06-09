@@ -85,10 +85,8 @@ public class Main {
 			Game game = new GameImpl(gameDeck);
 			games.add(game);
 			Player player0 = new PlayerImpl();
-			player0.setName("Player 0");
 			player0.setStrategy(new SmithyBigMoney());
 			Player player1 = new PlayerImpl();
-			player1.setName("Player 1");
 			player1.setStrategy(new BigMoney());
 
 			game.register(player0);
