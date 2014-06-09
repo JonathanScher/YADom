@@ -12,12 +12,46 @@ import java.util.List;
 
 import org.junit.Test;
 
+import dominion.PlayerImpl;
+import dominion.card.Copper;
 import dominion.deck.GameDeck;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 import dominion.interfaces.strategies.BuyOrder;
+import dominion.interfaces.strategies.CardsToBuy;
+import dominion.interfaces.strategies.SimpleBehaviour;
 
 public class MatchTest {
+	@Test
+	public void gamesDoNotShareTheirBuyOrder() {
+		// G
+		BuyOrder bo = new BuyOrder();
+		bo.add(new CardsToBuy(Copper.INSTANCE, 10));
+
+		Match match = new Match(GameDeck.basicDeck2Players(), bo, bo);
+		match.numberOfGames = 2;
+		match.init();
+		match.initGames();
+
+		// W
+		Player player = match.getPlayer(0, 0);
+		player.turn(match.games.get(0));
+
+		// T
+		Player otherPlayer = match.getPlayer(1, 0);
+		assertEquals(new CardsToBuy(Copper.INSTANCE, 9),
+				((SimpleBehaviour) ((PlayerImpl) player).strategy).buyOrder
+						.get(0));
+		assertEquals(
+				new CardsToBuy(Copper.INSTANCE, 10),
+				((SimpleBehaviour) ((PlayerImpl) otherPlayer).strategy).buyOrder
+						.get(0));
+
+		// list two games
+		// match.initialise
+		// play a turn of one game
+		// make sure that the buy Order haven't been changed
+	}
 
 	@Test
 	public void constructor() {
@@ -36,6 +70,7 @@ public class MatchTest {
 		assertEquals(deck, match.gameDeck);
 	}
 
+	@SuppressWarnings("unused")
 	@Test
 	public void init() {
 		// G
@@ -53,8 +88,6 @@ public class MatchTest {
 			assertFalse(match.games.get(0).getGameDeck() == match.games.get(1)
 					.getGameDeck());
 		}
-		assertEquals("player1", player1BO.name);
-		assertEquals("player2", player2BO.name);
 	}
 
 	@Test

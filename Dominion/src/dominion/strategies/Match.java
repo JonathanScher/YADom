@@ -19,6 +19,7 @@ public class Match {
 	public static final Logger LOGGER = Logger.getLogger(Match.class);
 	
 	public static final int NUMBER_OF_GAMES = 1;
+	public int numberOfGames = NUMBER_OF_GAMES;
 	public List<Game> games;
 	public BuyOrder player1BO;
 	public BuyOrder player2BO;
@@ -49,7 +50,7 @@ public class Match {
 	}
 	
 	public void init() {
-		for (int i = 0; i < NUMBER_OF_GAMES; i++) {
+		for (int i = 0; i < numberOfGames; i++) {
 			Game game = new GameImpl((GameDeck) gameDeck.clone());
 			games.add(game);
 		}
@@ -79,6 +80,10 @@ public class Match {
 				player2wins++;
 			}
 		});
+	}
+
+	public Player getPlayer(int gameNumber, int playerNumber) {
+		return games.get(gameNumber).getPlayer(playerNumber);
 	}
 
 }

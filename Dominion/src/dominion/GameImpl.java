@@ -127,4 +127,9 @@ public class GameImpl implements Game {
 		player.setStrategy(sb);
 		register(player);
 	}
+
+	@Override
+	public Player getPlayer(int playerNumber) {
+		return players.get(playerNumber);
+	}
 }
