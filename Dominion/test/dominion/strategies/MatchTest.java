@@ -3,6 +3,7 @@ package dominion.strategies;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -11,6 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InOrder;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import dominion.GameImpl;
 import dominion.PlayerImpl;
@@ -23,7 +28,81 @@ import dominion.interfaces.strategies.BuyOrder;
 import dominion.interfaces.strategies.CardsToBuy;
 import dominion.interfaces.strategies.SimpleBehaviour;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MatchTest {
+
+	@Mock
+	GameDeck deck;
+	@Mock
+	BuyOrder player1bo;
+	@Mock
+	BuyOrder player2bo;
+
+	@Test
+	public void run() {
+		// G
+		Match match = mock(Match.class);
+		InOrder inOrder = inOrder(match);
+		// W
+		Match.runMatch(match);
+		// T
+		inOrder.verify(match).init();
+		inOrder.verify(match).initGames();
+		inOrder.verify(match).playGames();
+		verify(match).gatherResult();
+	}
+
+	@Test
+	public void winner() {
+		// G
+		Match match = new Match(deck, player1bo, player2bo);
+		match.player1 = mock(Player.class);
+		match.player2 = mock(Player.class);
+		match.player1wins = 1;
+		match.player2wins = 0;
+
+		// W
+		Player actual = match.winner();
+
+		// T
+		assertEquals(match.player1, actual);
+
+	}
+
+	@Test
+	public void winnerPlayer2() {
+		// G
+		Match match = new Match(deck, player1bo, player2bo);
+		match.player1 = mock(Player.class);
+		match.player2 = mock(Player.class);
+		match.player1wins = 0;
+		match.player2wins = 1;
+
+		// W
+		Player actual = match.winner();
+
+		// T
+		assertEquals(match.player2, actual);
+
+	}
+
+	@Test
+	public void noWinners() {
+		// G
+		Match match = new Match(deck, player1bo, player2bo);
+		match.player1 = mock(Player.class);
+		match.player2 = mock(Player.class);
+		match.player1wins = 0;
+		match.player2wins = 0;
+
+		// W
+		Player actual = match.winner();
+
+		// T
+		assertEquals(null, actual);
+
+	}
+
 	@Test
 	public void gamesDoNotShareTheirBuyOrder() {
 		// G
@@ -107,7 +186,7 @@ public class MatchTest {
 		player1BO.add(Copper.INSTANCE, 8);
 		BuyOrder player2BO = new BuyOrder();
 		player2BO.add(Silver.INSTANCE, 8);
-		
+
 		GameDeck gameDeck = new GameDeck();
 		Game game1 = new GameImpl(gameDeck);
 		Game game2 = new GameImpl(gameDeck);
@@ -127,7 +206,7 @@ public class MatchTest {
 		assertEquals(player2, match.getPlayer(0, 1));
 		assertEquals(player2, match.getPlayer(1, 1));
 	}
-	
+
 	@Test
 	public void playGames() {
 		// G

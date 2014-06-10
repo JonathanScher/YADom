@@ -20,7 +20,6 @@ import dominion.interfaces.Player;
 import dominion.interfaces.strategies.BuyOrder;
 import dominion.strategies.BigMoney;
 import dominion.strategies.Match;
-import dominion.strategies.MatchService;
 import dominion.strategies.SmithyBigMoney;
 import dominion.tournament.Tournament;
 
@@ -30,6 +29,7 @@ public class Main {
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
 		tournament();
+	//	match();
 		long endTime = System.currentTimeMillis();
 		LOGGER.info("Execution time: " + (endTime - startTime) + "ms");
 	}
@@ -58,10 +58,11 @@ public class Main {
 		gameDeck.put(Smithy.INSTANCE, 8);
 
 		Match match = new Match(gameDeck, bm.buyOrder, sbm.buyOrder);
-		MatchService.runMatch(match);
+		Match.runMatch(match);
 		
 		LOGGER.info("player 1 wins: " + match.player1wins);
 		LOGGER.info("player 2 wins: " + match.player2wins);
+		LOGGER.info("winner is: " + match.winner());
 	}
 
 	@SuppressWarnings("unused")

@@ -14,7 +14,6 @@ import dominion.interfaces.Player;
 import dominion.interfaces.strategies.BuyOrder;
 import dominion.interfaces.strategies.SimpleBehaviour;
 import dominion.strategies.Match;
-import dominion.strategies.MatchService;
 
 public class Tournament {
 
@@ -41,10 +40,10 @@ public class Tournament {
 				.asList(strategies));
 		List<Match> matches = new ArrayList<>();
 		versus.parallelStream().forEach(x -> {
-			Match match = new Match(gameDeck, x.x, x.y);
-			MatchService.runMatch(match);
+			Match match = new Match(gameDeck, x.y, x.x);
+			Match.runMatch(match);
 			matches.add(match);
-			MatchService.runMatch(match);
+			Match.runMatch(match);
 		});
 
 		Map<Player, Integer> results = new HashMap<>();

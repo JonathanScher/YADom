@@ -20,7 +20,7 @@ public class Match {
 
 	public static final Logger LOGGER = Logger.getLogger(Match.class);
 
-	public static final int NUMBER_OF_GAMES = 1;
+	public static final int NUMBER_OF_GAMES = 100;
 	public int numberOfGames = NUMBER_OF_GAMES;
 	public List<Game> games;
 	public Player player1;
@@ -76,7 +76,6 @@ public class Match {
 		return games.get(gameNumber).getPlayer(playerNumber);
 	}
 
-	// WARNING UNTESTED
 	public Player winner() {
 		Player returned = null;
 		if (player1wins < player2wins) {
@@ -86,6 +85,18 @@ public class Match {
 			returned = player1;
 		}
 		return returned;
+	}
+	
+	public static void runMatch(Match match) {
+		LOGGER.debug("run Start");
+		match.init();
+		LOGGER.debug("init done");
+		match.initGames();
+		LOGGER.debug("initGame done");
+		match.playGames();
+		LOGGER.debug("playGame done");
+		match.gatherResult();
+		LOGGER.debug("gatherResult done");
 	}
 
 }
