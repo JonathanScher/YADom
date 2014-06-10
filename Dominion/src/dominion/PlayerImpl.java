@@ -2,7 +2,6 @@ package dominion;
 
 import java.util.List;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
 import dominion.card.Copper;
@@ -196,7 +195,7 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return "PlayerImpl [strategy=" + strategy + "]";
 	}
 
 }

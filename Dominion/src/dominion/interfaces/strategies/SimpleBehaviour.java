@@ -2,7 +2,6 @@ package dominion.interfaces.strategies;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
 import dominion.card.Smithy;
@@ -67,8 +66,9 @@ public class SimpleBehaviour implements Strategy {
 	}
 
 	@Override
-	public String toString(){
-		return ToStringBuilder.reflectionToString(this);
+	public String toString() {
+		return "SimpleBehaviour [buyOrder=" + buyOrder + "]";
 	}
+
 
 }

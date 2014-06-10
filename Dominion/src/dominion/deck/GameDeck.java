@@ -22,7 +22,14 @@ public class GameDeck extends HashMap<Card, Integer> {
 	private static final int NUMBER_OF_PILES_TO_BE_DEPLETED_MORE_PLAYERS = 3;
 	private static final long serialVersionUID = 7699189497179269801L;
 
-	public static GameDeck basicDeck2Players(){
+	public GameDeck() {
+	}
+
+	public GameDeck(GameDeck origin) {
+		putAll(origin);
+	}
+
+	public static GameDeck basicDeck2Players() {
 		GameDeck gameDeck = new GameDeck();
 		gameDeck.put(Province.INSTANCE, NUMBER_OF_VICTORY_CARDS_2_PLAYERS);
 		gameDeck.put(Duchy.INSTANCE, NUMBER_OF_VICTORY_CARDS_2_PLAYERS);
@@ -33,7 +40,7 @@ public class GameDeck extends HashMap<Card, Integer> {
 		gameDeck.put(Curse.INSTANCE, NUMBER_OF_CURSES_2_PLAYERS);
 		return gameDeck;
 	}
-	
+
 	public Boolean gameOver(Integer numberOfPlayers) {
 		return provincesAreGone() || tooManyPilesEmptied(numberOfPlayers);
 	}

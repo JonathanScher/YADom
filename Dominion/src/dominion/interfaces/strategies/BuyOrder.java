@@ -14,9 +14,15 @@ public class BuyOrder extends ArrayList<CardsToBuy> {
 		origin.forEach(x -> {
 			add(new CardsToBuy(x));
 		});
+		name = origin.name;
 	}
 	
 	public void add(Card card, Integer numberToBuy){
 		add(new CardsToBuy(card, numberToBuy));
 	}
+	@Override
+	public String toString() {
+		return "BuyOrder [name=" + name + "]";
+	}
+	
 }

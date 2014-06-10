@@ -41,7 +41,7 @@ public class Match {
 
 	public void init() {
 		for (int i = 0; i < numberOfGames; i++) {
-			Game game = new GameImpl((GameDeck) gameDeck.clone());
+			Game game = new GameImpl(new GameDeck(gameDeck));
 			games.add(game);
 		}
 	}
@@ -74,6 +74,18 @@ public class Match {
 
 	public Player getPlayer(int gameNumber, int playerNumber) {
 		return games.get(gameNumber).getPlayer(playerNumber);
+	}
+
+	// WARNING UNTESTED
+	public Player winner() {
+		Player returned = null;
+		if (player1wins < player2wins) {
+			returned = player2;
+		}
+		if (player1wins > player2wins) {
+			returned = player1;
+		}
+		return returned;
 	}
 
 }

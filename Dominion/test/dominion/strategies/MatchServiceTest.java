@@ -1,7 +1,8 @@
 package dominion.strategies;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
 import org.mockito.InOrder;
@@ -14,9 +15,8 @@ public class MatchServiceTest {
 		//G
 		Match match = mock(Match.class);
 		InOrder inOrder = inOrder(match);
-		MatchService matchService = new MatchService(match);
 		//W
-		matchService.run();
+		MatchService.runMatch(match);
 		//T
 		inOrder.verify(match).init();
 		inOrder.verify(match).initGames();

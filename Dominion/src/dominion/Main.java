@@ -2,6 +2,7 @@ package dominion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -16,21 +17,40 @@ import dominion.card.Smithy;
 import dominion.deck.GameDeck;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
+import dominion.interfaces.strategies.BuyOrder;
 import dominion.strategies.BigMoney;
 import dominion.strategies.Match;
 import dominion.strategies.MatchService;
 import dominion.strategies.SmithyBigMoney;
+import dominion.tournament.Tournament;
 
 public class Main {
 	public static final Logger LOGGER = Logger.getLogger(Main.class);
 
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
-		match();
+		tournament();
 		long endTime = System.currentTimeMillis();
 		LOGGER.info("Execution time: " + (endTime - startTime) + "ms");
 	}
 
+	private static void tournament(){
+		BuyOrder doNothing = new BuyOrder();
+		BigMoney bm = new BigMoney();
+		SmithyBigMoney sbm = new SmithyBigMoney();
+		GameDeck gameDeck = GameDeck.basicDeck2Players();
+		gameDeck.put(Smithy.INSTANCE, 8);
+		
+		doNothing.name = "Do Nothing";
+		bm.buyOrder.name = "Big Money";
+		sbm.buyOrder.name = "Smithy/Big Money";
+		
+		Tournament tournament = new Tournament(gameDeck);
+		Map<Player, Integer> results = tournament.play(doNothing, bm.buyOrder, sbm.buyOrder);
+		LOGGER.info("wins: " + results);
+				
+	}
+	
 	private static void match() {
 		BigMoney bm = new BigMoney();
 		SmithyBigMoney sbm = new SmithyBigMoney();
@@ -38,8 +58,8 @@ public class Main {
 		gameDeck.put(Smithy.INSTANCE, 8);
 
 		Match match = new Match(gameDeck, bm.buyOrder, sbm.buyOrder);
-		MatchService ms = new MatchService(match);
-		ms.run();
+		MatchService.runMatch(match);
+		
 		LOGGER.info("player 1 wins: " + match.player1wins);
 		LOGGER.info("player 2 wins: " + match.player2wins);
 	}
