@@ -32,8 +32,8 @@ public class Main {
 		long startTime = System.currentTimeMillis();
 		// tournament();
 		// match();
-		// geneticIA();
-		infiniteGame();
+		geneticIA();
+		//infiniteGame();
 		long endTime = System.currentTimeMillis();
 		LOGGER.info("Execution time: " + (endTime - startTime) + "ms");
 	}

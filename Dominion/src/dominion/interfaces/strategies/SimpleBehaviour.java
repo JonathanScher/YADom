@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import dominion.card.Smithy;
 import dominion.exception.BuyException;
+import dominion.interfaces.Card;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 
@@ -36,7 +37,8 @@ public class SimpleBehaviour implements Strategy {
 					couple.numberToBuy--;
 					break;
 				} catch (BuyException e) {
-					logger.error(e);
+					logger.error("BuyException of type " + e.getClass()
+							+ " for card " + e.card);
 				}
 			}
 		}
@@ -70,5 +72,13 @@ public class SimpleBehaviour implements Strategy {
 		return "SimpleBehaviour [buyOrder=" + buyOrder + "]";
 	}
 
+	@Override
+	public void pileDepleted(Card card) {
+		buyOrder.forEach(x -> {
+			if (x.card.equals(card)) {
+				x.numberToBuy = 0;
+			}
+		});
+	}
 
 }

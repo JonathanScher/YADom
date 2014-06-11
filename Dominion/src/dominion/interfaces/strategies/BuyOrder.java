@@ -2,8 +2,6 @@ package dominion.interfaces.strategies;
 
 import java.util.ArrayList;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
 import dominion.interfaces.Card;
 
 public class BuyOrder extends ArrayList<CardsToBuy> {

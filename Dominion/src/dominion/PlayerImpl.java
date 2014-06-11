@@ -200,7 +200,6 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void pileDepleted(Card card) {
-		// TODO Auto-generated method stub
-		
+		strategy.pileDepleted(card);
 	}
 }
