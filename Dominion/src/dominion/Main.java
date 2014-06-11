@@ -21,6 +21,7 @@ import dominion.interfaces.strategies.BuyOrder;
 import dominion.strategies.BigMoney;
 import dominion.strategies.Match;
 import dominion.strategies.SmithyBigMoney;
+import dominion.tournament.GeneticIA;
 import dominion.tournament.Tournament;
 
 public class Main {
@@ -28,12 +29,20 @@ public class Main {
 
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
-		tournament();
+	//	tournament();
 	//	match();
+		geneticIA();
 		long endTime = System.currentTimeMillis();
 		LOGGER.info("Execution time: " + (endTime - startTime) + "ms");
 	}
 
+	private static void geneticIA(){
+		GeneticIA gai = new GeneticIA();
+		gai.run();
+		LOGGER.info("the winner is " +gai.buyOrder0);
+		LOGGER.info("the winner is " +gai.buyOrder1);
+	}
+	
 	private static void tournament(){
 		BuyOrder doNothing = new BuyOrder();
 		BigMoney bm = new BigMoney();

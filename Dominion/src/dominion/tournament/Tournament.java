@@ -48,11 +48,14 @@ public class Tournament {
 
 		Map<Player, Integer> results = new HashMap<>();
 		matches.forEach(x -> {
+			if (results.get(x.player1) == null) {
+				results.put(x.player1, 0);
+			}
+			if (results.get(x.player2) == null) {
+				results.put(x.player2, 0);
+			}
 			Player winner = x.winner();
 			if (winner != null) {
-				if (results.get(winner) == null) {
-					results.put(winner, 0);
-				}
 				results.put(winner, results.get(winner) + 1);
 			}
 		});
