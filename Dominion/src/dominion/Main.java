@@ -24,42 +24,54 @@ import dominion.strategies.SmithyBigMoney;
 import dominion.tournament.GeneticIA;
 import dominion.tournament.Tournament;
 
+@SuppressWarnings("unused")
 public class Main {
 	public static final Logger LOGGER = Logger.getLogger(Main.class);
 
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
-	//	tournament();
-	//	match();
-		geneticIA();
+		// tournament();
+		// match();
+		// geneticIA();
+		infiniteGame();
 		long endTime = System.currentTimeMillis();
 		LOGGER.info("Execution time: " + (endTime - startTime) + "ms");
 	}
 
-	private static void geneticIA(){
+	private static void infiniteGame() {
+		Game game = new GameImpl(GameDeck.basicDeck2Players());
+		Player player1 = new PlayerImpl();
+		Player player2 = new PlayerImpl();
+		game.register(player1);
+		game.register(player2);
+		game.play();
+	}
+
+	private static void geneticIA() {
 		GeneticIA gai = new GeneticIA();
 		gai.run();
-		LOGGER.info("the winner is " +gai.buyOrder0);
-		LOGGER.info("the winner is " +gai.buyOrder1);
+		LOGGER.info("the winner is " + gai.buyOrder0);
+		LOGGER.info("the winner is " + gai.buyOrder1);
 	}
-	
-	private static void tournament(){
+
+	private static void tournament() {
 		BuyOrder doNothing = new BuyOrder();
 		BigMoney bm = new BigMoney();
 		SmithyBigMoney sbm = new SmithyBigMoney();
 		GameDeck gameDeck = GameDeck.basicDeck2Players();
 		gameDeck.put(Smithy.INSTANCE, 8);
-		
+
 		doNothing.name = "Do Nothing";
 		bm.buyOrder.name = "Big Money";
 		sbm.buyOrder.name = "Smithy/Big Money";
-		
+
 		Tournament tournament = new Tournament(gameDeck);
-		Map<Player, Integer> results = tournament.play(doNothing, bm.buyOrder, sbm.buyOrder);
+		Map<Player, Integer> results = tournament.play(doNothing, bm.buyOrder,
+				sbm.buyOrder);
 		LOGGER.info("wins: " + results);
-				
+
 	}
-	
+
 	private static void match() {
 		BigMoney bm = new BigMoney();
 		SmithyBigMoney sbm = new SmithyBigMoney();
@@ -68,13 +80,12 @@ public class Main {
 
 		Match match = new Match(gameDeck, bm.buyOrder, sbm.buyOrder);
 		Match.runMatch(match);
-		
+
 		LOGGER.info("player 1 wins: " + match.player1wins);
 		LOGGER.info("player 2 wins: " + match.player2wins);
 		LOGGER.info("winner is: " + match.winner());
 	}
 
-	@SuppressWarnings("unused")
 	private static void simpleGame() {
 		Integer player0wins;
 		List<Game> games = init();

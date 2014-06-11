@@ -153,7 +153,7 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	public void buy(Card card) {
+	public void bought(Card card) {
 		LOGGER.trace("Player buys " + card.getData());
 		giveCard(card);
 		buyLeft -= 1;
@@ -198,4 +198,9 @@ public class PlayerImpl implements Player {
 		return "PlayerImpl [strategy=" + strategy + "]";
 	}
 
+	@Override
+	public void pileDepleted(Card card) {
+		// TODO Auto-generated method stub
+		
+	}
 }

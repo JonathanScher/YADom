@@ -1,7 +1,8 @@
 package dominion.deck;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import dominion.card.Copper;
 import dominion.card.Curse;
@@ -10,6 +11,9 @@ import dominion.card.Estate;
 import dominion.card.Gold;
 import dominion.card.Province;
 import dominion.card.Silver;
+import dominion.exception.BuyException;
+import dominion.exception.CardNotInDeckException;
+import dominion.exception.PileDepletedException;
 import dominion.interfaces.Card;
 
 public class GameDeck extends HashMap<Card, Integer> {
@@ -22,11 +26,15 @@ public class GameDeck extends HashMap<Card, Integer> {
 	private static final int NUMBER_OF_PILES_TO_BE_DEPLETED_MORE_PLAYERS = 3;
 	private static final long serialVersionUID = 7699189497179269801L;
 
+	protected List<GameDeckListener> observers;
+	
 	public GameDeck() {
+		observers = new ArrayList<GameDeckListener>();
 	}
 
 	public GameDeck(GameDeck origin) {
 		putAll(origin);
+		observers = new ArrayList<GameDeckListener>();
 	}
 
 	public static GameDeck basicDeck2Players() {
@@ -41,19 +49,27 @@ public class GameDeck extends HashMap<Card, Integer> {
 		return gameDeck;
 	}
 
-	public Boolean gameOver(Integer numberOfPlayers) {
-		return provincesAreGone() || tooManyPilesEmptied(numberOfPlayers);
+	public void addObserver(GameDeckListener observer) {
+		observers.add(observer);
 	}
 
-	private Boolean tooManyPilesEmptied(Integer numberOfPlayers) {
-		Integer numberOfPilesToBeDepleted = NUMBER_OF_PILES_TO_BE_DEPLETED_2_PLAYERS;
-		if (numberOfPlayers > 2) {
-			numberOfPilesToBeDepleted = NUMBER_OF_PILES_TO_BE_DEPLETED_MORE_PLAYERS;
+	public void notifyAllDepleted(Card instance) {
+		observers.parallelStream().forEach(x -> x.pileDepleted(instance));
+	}
+
+	public void buy(Card card) throws BuyException {
+		if (get(card) == null) {
+			throw new CardNotInDeckException(card);
 		}
-		return Collections.frequency(values(), Integer.valueOf(0)) >= numberOfPilesToBeDepleted;
-	}
-
-	private Boolean provincesAreGone() {
-		return get(Province.INSTANCE) != null && get(Province.INSTANCE) == 0;
+		if (get(card) < 1) {
+			throw new PileDepletedException(card);
+		}
+		int numberOfCards = get(card);
+		numberOfCards -= 1;
+		put(card, numberOfCards);
+		
+		if (numberOfCards == 0) {
+			notifyAllDepleted(card);
+		}		
 	}
 }

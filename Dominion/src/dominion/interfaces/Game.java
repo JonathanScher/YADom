@@ -3,9 +3,10 @@ package dominion.interfaces;
 import java.util.List;
 
 import dominion.deck.GameDeck;
+import dominion.deck.GameDeckListener;
 import dominion.exception.BuyException;
 
-public interface Game {
+public interface Game extends GameDeckListener {
 	void register(Player player);
 
 	List<Integer> getNumberOfCards();
@@ -13,8 +14,6 @@ public interface Game {
 	void play();
 
 	List<Player> winner();
-
-	Boolean gameOver();
 
 	void buy(Card instance, Player player) throws BuyException;
 

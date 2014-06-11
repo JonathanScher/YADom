@@ -2,16 +2,17 @@ package dominion;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import dominion.card.Province;
 import dominion.deck.GameDeck;
 import dominion.exception.BuyException;
-import dominion.exception.CardNotInDeckException;
 import dominion.exception.NotAllowedToBuyException;
 import dominion.exception.NotEnoughGoldException;
-import dominion.exception.PileDepletedException;
 import dominion.interfaces.Card;
 import dominion.interfaces.Game;
 import dominion.interfaces.Player;
@@ -22,10 +23,15 @@ public class GameImpl implements Game {
 	public GameDeck gameDeck;
 	public List<Player> players;
 	public int turn;
+	public Boolean gameOver;
+	public Set<Card> depleted;
 
 	public GameImpl(GameDeck gameDeck) {
 		this.gameDeck = gameDeck;
+		gameDeck.addObserver(this);
 		players = new ArrayList<Player>();
+		gameOver = false;
+		depleted = new HashSet<>();
 	}
 
 	public GameDeck getGameDeck() {
@@ -50,13 +56,14 @@ public class GameImpl implements Game {
 
 	@Override
 	public void play() {
-		Integer numberOfPlayers = players.size();
-		Boolean over = gameDeck.gameOver(numberOfPlayers);
 		Integer playerTurn = 0;
-		while (!over) {
+		while (!gameOver) {
 			play(playerTurn);
 			playerTurn = incrementPlayerTurn(playerTurn);
-			over = gameOver();
+			turn++;
+			if (turn > MAX_GAME_TURNS) {
+				gameOver = true;
+			}
 		}
 		players.forEach(x -> {
 			LOGGER.trace(x + " has scored " + x.victoryValue());
@@ -70,13 +77,13 @@ public class GameImpl implements Game {
 
 	private Integer incrementPlayerTurn(Integer playerTurn) {
 		Integer next = playerTurn;
-		next ++;
-		if(next >= players.size()) {
+		next++;
+		if (next >= players.size()) {
 			next = 0;
 		}
 		return next;
 	}
-	
+
 	@Override
 	public List<Player> winner() {
 		List<Player> winners = new ArrayList<>();
@@ -86,28 +93,15 @@ public class GameImpl implements Game {
 	}
 
 	@Override
-	public Boolean gameOver() {
-		return turn > MAX_GAME_TURNS || gameDeck.gameOver(players.size());
-	}
-
-	@Override
 	public void buy(Card card, Player player) throws BuyException {
-		if (gameDeck.get(card) == null) {
-			throw new CardNotInDeckException(card);
-		}
-		if (gameDeck.get(card) < 1) {
-			throw new PileDepletedException(card);
-		}
 		if (player.getGold() < card.getCost()) {
 			throw new NotEnoughGoldException(card);
 		}
 		if (player.getBuyLeft() < 1) {
 			throw new NotAllowedToBuyException(card);
 		}
-		player.buy(card);
-		int numberOfCards = gameDeck.get(card);
-		numberOfCards -= 1;
-		gameDeck.put(card, numberOfCards);
+		gameDeck.buy(card);
+		player.bought(card);
 	}
 
 	@Override
@@ -119,5 +113,14 @@ public class GameImpl implements Game {
 	@Override
 	public Player getPlayer(int playerNumber) {
 		return players.get(playerNumber);
+	}
+
+	@Override
+	public void pileDepleted(Card card) {
+		depleted.add(card);
+
+		if (Province.INSTANCE.equals(card) || depleted.size() >= 3) {
+			gameOver = true;
+		}
 	}
 }

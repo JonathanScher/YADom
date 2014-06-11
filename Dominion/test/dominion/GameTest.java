@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,13 +13,12 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import dominion.card.Copper;
 import dominion.card.Curse;
-import dominion.card.Duchy;
 import dominion.card.Estate;
 import dominion.card.Province;
+import dominion.card.Silver;
 import dominion.card.Smithy;
 import dominion.deck.GameDeck;
 import dominion.deck.PlayerDeck;
@@ -30,15 +28,10 @@ import dominion.exception.NotAllowedToBuyException;
 import dominion.exception.NotEnoughGoldException;
 import dominion.exception.PileDepletedException;
 import dominion.interfaces.Card;
-import dominion.interfaces.Game;
 import dominion.interfaces.Player;
 
 public class GameTest {
-	/*
-	 * informations required to print the board: - number of actions left -
-	 * number of buy left - number of gold within the turn
-	 */
-	Game game;
+	GameImpl game;
 	PlayerImpl player0;
 	PlayerImpl player1;
 	PlayerDeck cards;
@@ -56,15 +49,58 @@ public class GameTest {
 	}
 
 	@Test
-	public void gameLastFor80Turns(){
-		//G
-		((GameImpl)game).turn = 81;
-		//W
-		Boolean actual = ((GameImpl)game).gameOver();
-		//T
-		assertTrue(actual);
+	public void pileDepletedAddsOne() {
+		// G
+		// W
+		game.pileDepleted(Copper.INSTANCE);
+		// T
+		assertEquals(1, game.depleted.size());
 	}
-	
+
+	@Test
+	public void provinceDepletedEndsGame() {
+		// G
+		// W
+		game.pileDepleted(Province.INSTANCE);
+		// T
+		assertTrue(game.gameOver);
+	}
+
+	@Test
+	public void threeDepletedEndsGame() {
+		// G
+		// W
+		game.pileDepleted(Curse.INSTANCE);
+		game.pileDepleted(Copper.INSTANCE);
+		game.pileDepleted(Silver.INSTANCE);
+		// T
+		assertTrue(game.gameOver);
+	}
+
+	@Test
+	public void threeSameCardDepletedDoesNotEndsGame() {
+		// G
+		// W
+		game.pileDepleted(Copper.INSTANCE);
+		game.pileDepleted(Copper.INSTANCE);
+		game.pileDepleted(Copper.INSTANCE);
+		// T
+		assertFalse(game.gameOver);
+	}
+
+	@Test
+	public void gameLastFor80Turns() {
+		// G
+		Player player = mock(Player.class);
+		game.players = new ArrayList<>();
+		game.register(player);
+		game.turn = 81;
+		// W
+		game.play();
+		// T
+		verify(player, times(1)).turn(game);
+	}
+
 	@Test
 	public void playCard() {
 		// G
@@ -103,7 +139,7 @@ public class GameTest {
 	@Test(expected = CardNotInDeckException.class)
 	public void tryToBuyACardNotFromDeck() throws BuyException {
 		gameDeck.put(Curse.INSTANCE, 0);
-		game.buy(Duchy.INSTANCE, player0);
+		game.buy(Copper.INSTANCE, player0);
 	}
 
 	@Test(expected = NotEnoughGoldException.class)
@@ -148,67 +184,17 @@ public class GameTest {
 	}
 
 	@Test
-	public void threeTurnsThenGameOver() {
+	public void ifGameOverNoPlay() {
 		// Given
-		gameDeck = Mockito.mock(GameDeck.class);
-		when(gameDeck.gameOver(2)).thenReturn(false).thenReturn(false)
-				.thenReturn(false).thenReturn(true);
-
 		player0 = mock(PlayerImpl.class);
-		player1 = mock(PlayerImpl.class);
 
 		game = new GameImpl(gameDeck);
 		game.register(player0);
-		game.register(player1);
+		game.gameOver = true;
 		// When
 		game.play();
 		// Then
-		verify(player0, times(2)).turn(game);
-		verify(player1, times(1)).turn(game);
-	}
-
-	@Test
-	public void threeTurnsThenGameOverThreePlayers() {
-		// Given
-		gameDeck = Mockito.mock(GameDeck.class);
-		when(gameDeck.gameOver(3)).thenReturn(false).thenReturn(false)
-				.thenReturn(false).thenReturn(false).thenReturn(true);
-
-		player0 = mock(PlayerImpl.class);
-		player1 = mock(PlayerImpl.class);
-		Player player2 = mock(PlayerImpl.class);
-
-		game = new GameImpl(gameDeck);
-		game.register(player0);
-		game.register(player1);
-		game.register(player2);
-		// When
-		game.play();
-		// Then
-		verify(player0, times(2)).turn(game);
-		verify(player1, times(1)).turn(game);
-		verify(player2, times(1)).turn(game);
-	}
-
-	@Test
-	public void gameOver() {
-		gameDeck = mock(GameDeck.class);
-		when(gameDeck.gameOver(3)).thenReturn(true);
-		game = new GameImpl(gameDeck);
-		game.register(player0);
-		game.register(player0);
-		game.register(player0);
-		assertTrue(game.gameOver());
-	}
-
-	@Test
-	public void gameNotOver() {
-		gameDeck = mock(GameDeck.class);
-		when(gameDeck.gameOver(2)).thenReturn(false);
-		game = new GameImpl(gameDeck);
-		game.register(player0);
-		game.register(player0);
-		assertFalse(game.gameOver());
+		verify(player0, times(0)).turn(game);
 	}
 
 	@Test
